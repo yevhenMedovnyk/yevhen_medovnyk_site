@@ -1,0 +1,9 @@
+@use '/src/styles/reset.scss' as *;
+@use '/src/styles/variables.scss' as *;
+
+body {
+	font-family: $font-primary;
+	font-weight: 400;
+	color: $color-primary;
+	background-color: $color-bg;
+}

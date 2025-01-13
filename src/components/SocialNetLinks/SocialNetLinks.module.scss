@@ -1,0 +1,17 @@
+@use '../../styles/variables' as *;
+
+.container {
+	display: flex;
+	justify-content: center;
+	gap: 0.7rem;
+	font-size: 1.3rem;
+	padding: 1.4rem;
+	border-top: $color-border solid 1px;
+	min-width: 80vw;
+}
+.link {
+	transition: 0.2s ease-in-out;
+	&:hover {
+		color: $color-secondary;
+	}
+}

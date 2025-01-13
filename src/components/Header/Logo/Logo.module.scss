@@ -1,0 +1,14 @@
+.container{
+	display: flex;
+	align-items: center;
+	width: 12rem;
+}
+
+.container img{
+	width: 100%;
+	cursor: pointer;
+	transition: all 0.1s ease-in-out;
+	&:hover{
+		opacity: 0.85;
+	}
+}
