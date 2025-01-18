@@ -3,19 +3,19 @@ import { Route, Routes } from 'react-router-dom';
 
 import Layout from './components/Layout/Layout';
 import Contacts from './pages/Contacts/Contacts';
-import Home from './pages/Home/Home';
-import Gallery from './pages/Gallery/Gallery';
+import GalleryPage from './pages/GalleryPage/Gallery.page';
 import Projects from './pages/Projects/Projects';
 import Store from './pages/Store/Store';
 import About from './pages/About/About';
+import Album from './pages/Album/Album';
 
 function App(): React.ReactElement {
 	return (
 		<>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					<Route index element={<Home />} />
-					<Route path="/gallery" element={<Gallery />} />
+					<Route index element={<GalleryPage />} />
+					<Route path="/*" element={<Album />} />
 					<Route path="/projects" element={<Projects />} />
 					<Route path="/contacts" element={<Contacts />} />
 					<Route path="/about" element={<About />} />

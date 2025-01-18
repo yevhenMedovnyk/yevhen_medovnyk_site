@@ -1,7 +1,7 @@
 import React from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { contactFormSchema } from '../../schemas/contactForm.schema.ts';
-import SocialNetLinksList from '../../components/SocialNetLinks/SocialNetLinks';
+import SocialNetLinksList from '../../components/SocialNetLinks/SocialNetLinks.tsx';
 import s from './Contacts.module.scss';
 
 const Contacts: React.FC = () => {
