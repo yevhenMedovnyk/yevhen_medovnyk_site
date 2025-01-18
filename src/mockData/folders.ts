@@ -7,7 +7,7 @@ export const folders = [
 		id: 1,
 		cover: cover1,
 		title: '#київськовуличне [2017-2025]',
-		link: 'images/street_photography/kyiv/',
+		link: 'gallery/street_photography/kyyivskovulychne/',
 	},
 	{
 		id: 2,
