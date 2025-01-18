@@ -1,0 +1,13 @@
+@use "/src/styles/variables" as *;
+
+.container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 2.6rem;
+	font-weight: 700;
+	color: $color-bg;
+	height: 6rem;
+	background: url('./../../assets/bg.webp') no-repeat center center;
+	background-size: cover;
+}

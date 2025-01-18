@@ -4,11 +4,13 @@ import Header from '../Header/Header';
 
 import s from './Layout.module.scss';
 import Footer from '../Footer/Footer';
+import MainTitle from '../MainTitle/MainTitle';
 
 const Layout: React.FC = () => {
 	return (
 		<div className={s.container}>
 			<Header />
+			<MainTitle />
 			<main className={s.main}>
 				<Outlet />
 			</main>
