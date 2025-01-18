@@ -1,0 +1,27 @@
+@use "/src/styles/variables" as *;
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 22rem;
+	height: 18rem;
+	border: 2px solid $color-border-tertiary;
+	padding: 1em;
+	overflow: hidden;
+}
+
+.imgLink {
+	overflow: hidden;
+	height: 208px;
+	margin-bottom: 0.6rem;
+}
+.container img {
+	cursor: pointer;
+	object-fit: cover;
+	height: 100%;
+	transition: all 0.2s ease-in-out;
+	&:hover {
+		opacity: 0.93;
+	}
+}
