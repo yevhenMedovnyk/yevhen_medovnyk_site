@@ -6,7 +6,7 @@ import s from './Layout.module.scss';
 import Footer from '../Footer/Footer';
 import MainTitle from '../MainTitle/MainTitle';
 
-const Layout: React.FC = () => {
+const Layout = () => {
 	return (
 		<div className={s.container}>
 			<Header />

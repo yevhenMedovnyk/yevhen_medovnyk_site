@@ -1,5 +1,18 @@
+@use "/src/styles/variables" as *;
+
+
 .container{
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 100%;
 	gap: 2rem;
+}
+
+.createAlbumBtn{
+	padding: 0.5rem 1rem;
+	margin: 0 1rem 1.3rem auto;
+	border-radius: 3px;
+	border: 1px solid $color-border-secondary;
+	
 }
