@@ -8,6 +8,7 @@ import Projects from './pages/Projects/Projects';
 import Store from './pages/Store/Store';
 import About from './pages/About/About';
 import Album from './pages/Album/Album';
+import CreateAlbum from './pages/CreateAlbum/CreateAlbum';
 
 function App(): React.ReactElement {
 	return (
@@ -16,6 +17,7 @@ function App(): React.ReactElement {
 				<Route path="/" element={<Layout />}>
 					<Route index element={<GalleryPage />} />
 					<Route path="/*" element={<Album />} />
+					<Route path="/create-album" element={<CreateAlbum />} />
 					<Route path="/projects" element={<Projects />} />
 					<Route path="/contacts" element={<Contacts />} />
 					<Route path="/about" element={<About />} />

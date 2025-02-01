@@ -18,9 +18,9 @@ const TitleList: ITitleList[] = [
 const MainTitle: React.FC = () => {
 	const { pathname } = useLocation();
 
-	const title = TitleList.find((item) => item.match === pathname);
+	const currentTitle = TitleList.find(({ match }) => match === pathname);
 
-	return <h1 className={s.container}>{title?.title}</h1>;
+	return <h1 className={s.container}>{currentTitle?.title}</h1>;
 };
 
 export default MainTitle;
