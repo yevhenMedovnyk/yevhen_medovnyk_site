@@ -6,13 +6,13 @@ const Copyright: React.FC = () => {
 		<div className={s.container}>
 			<p>
 				&copy; Євген Медовник
-				<p />
-				<p>
+				<span />
+				<span>
 					Усі фотографії на цьому сайті підпадають під авторське право, <br />
 					та будь-яке їх використання без згоди автора заборонено.
 					<br />
-				</p>
-				<p>2024 - {new Date().getFullYear()}</p>
+				</span>
+				<span>2024 - {new Date().getFullYear()}</span>
 			</p>
 		</div>
 	);

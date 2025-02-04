@@ -35,3 +35,17 @@
 	opacity: 1;
 	animation: fadeIn 500ms forwards;
 }
+
+.deleteIcon{
+	z-index: 10;
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	font-size: 1.7rem;
+	color: white;
+	cursor: pointer;
+	transition: all 0.1s ease-in-out;
+	&:hover{
+		opacity: 0.85;
+	}
+}

@@ -2,16 +2,24 @@ import React from 'react';
 import s from './Gallery.module.scss';
 import LazyImage from '../LazyImage/LazyImage';
 import { IImage } from '../../types/IImage';
+import clsx from 'clsx';
 
 interface GalleryProps {
 	images: IImage[];
+	variant?: string;
+	onClickDeleteImage?: (index: number, id?: string) => void;
 }
 
-const Gallery: React.FC<GalleryProps> = ({ images }) => {
+const Gallery: React.FC<GalleryProps> = ({ images, variant, onClickDeleteImage }) => {
 	return (
-		<div className={s.container}>
-			{images.map(({ img, _id, name }) => (
-				<LazyImage key={_id} img={img} alt={name} />
+		<div className={clsx(s.container, variant && s[variant])}>
+			{images.map(({ img, _id, name }, index) => (
+				<LazyImage
+					key={_id || index}
+					img={img}
+					onClickDelete={onClickDeleteImage ? () => onClickDeleteImage(index, _id) : undefined}
+					alt={name}
+				/>
 			))}
 		</div>
 	);
