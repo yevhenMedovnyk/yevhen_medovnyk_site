@@ -5,7 +5,7 @@ const Copyright: React.FC = () => {
 	return (
 		<div className={s.container}>
 			<p>
-				&copy; Євген Медовник
+				&copy; Євген Медовник <br />
 				<span />
 				<span>
 					Усі фотографії на цьому сайті підпадають під авторське право, <br />

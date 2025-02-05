@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './CreateOrEditAlbum.module.scss';
 import {
 	useCreateFolderMutation,
@@ -39,6 +39,13 @@ const CreateOrEditAlbum: React.FC = () => {
 		link: 'album',
 		album_images: [] as File[],
 	};
+
+	useEffect(() => {
+		if (albumData) {
+			setAlbumName(albumData.name);
+			setCoverPreview(albumData.cover_img);
+		}
+	}, [albumData]);
 
 	const onSubmit = async (
 		values: typeof initialValues,

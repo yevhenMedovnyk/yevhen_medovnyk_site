@@ -1,8 +1,9 @@
 import React from 'react';
 import s from './Gallery.module.scss';
 import LazyImage from '../LazyImage/LazyImage';
-import { IImage } from '../../types/IImage';
 import clsx from 'clsx';
+
+import { IImage } from '../../types/IImage';
 
 interface GalleryProps {
 	images: IImage[];

@@ -39,10 +39,10 @@
 .deleteIcon{
 	z-index: 10;
 	position: absolute;
-	top: 1rem;
-	left: 1rem;
+	top: 1.3rem;
+	left: 1.3rem;
 	font-size: 1.7rem;
-	color: white;
+	color: rgb(237, 53, 53);
 	cursor: pointer;
 	transition: all 0.1s ease-in-out;
 	&:hover{
