@@ -30,11 +30,22 @@ const Contacts: React.FC = () => {
 				{() => (
 					<Form className={s.form}>
 						<div className={s.inputContainer}>
-							<Field className={s.input} type="text" name="name" placeholder="Ваше ім'я" />
+							<Field
+								className={s.input}
+								type="text"
+								name="name"
+								placeholder="Ваше ім'я"
+								autocomplete="off"
+							/>
 							<ErrorMessage name="name" component="span" className={s.error} />
 						</div>
 						<div className={s.inputContainer}>
-							<Field className={s.input} name="email" placeholder="Ваша електронна пошта" />
+							<Field
+								className={s.input}
+								name="email"
+								placeholder="Ваша електронна пошта"
+								autocomplete="off"
+							/>
 							<ErrorMessage name="email" component="span" className={s.error} />
 						</div>
 						<div className={s.textareaContainer}>
@@ -44,6 +55,7 @@ const Contacts: React.FC = () => {
 								className={s.textarea}
 								name="message"
 								placeholder="Введіть ваше повідомлення"
+								autocomplete="off"
 							/>
 							<ErrorMessage name="message" component="span" className={s.error} />
 						</div>

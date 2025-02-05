@@ -1,6 +1,7 @@
 @use '/src/styles/variables.scss' as *;
 
 .container{
+	position: sticky;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -8,5 +9,4 @@
 	padding: 1.8rem 10rem;
 	background: $color-bg-secondary;
 	box-shadow: 0px 0px 14px 1px rgba(44, 63, 82, 0.42);	
-	position: sticky;
 }

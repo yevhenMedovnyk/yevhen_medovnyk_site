@@ -6,9 +6,12 @@ export const imagesApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: 'http://localhost:8080/',
 	}),
+	tagTypes: ['Images'],
+
 	endpoints: (builder) => ({
 		getImages: builder.query<IImage[], string | undefined>({
 			query: (albumId) => `gallery?albumId=${albumId}`,
+			providesTags: (result) => (result ? [{ type: 'Images' as const, id: 'LIST' }] : []),
 		}),
 		uploadImages: builder.mutation({
 			query: (images = []) => ({
@@ -16,8 +19,16 @@ export const imagesApi = createApi({
 				method: 'POST',
 				body: images,
 			}),
+			invalidatesTags: ['Images'],
+		}),
+		deleteImage: builder.mutation({
+			query: (imageId) => ({
+				url: `/gallery/delete-image?imageId=${imageId}`,
+				method: 'DELETE',
+			}),
+			invalidatesTags: ['Images'],
 		}),
 	}),
 });
 
-export const { useGetImagesQuery, useUploadImagesMutation } = imagesApi;
+export const { useGetImagesQuery, useUploadImagesMutation, useDeleteImageMutation } = imagesApi;

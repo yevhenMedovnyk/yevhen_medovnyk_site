@@ -14,3 +14,20 @@
 	//padding: 1rem;
 	//box-sizing: border-box;
 }
+
+.container.createEditAlbum{
+	//	margin: 1rem auto 3rem;
+	//padding: 0 2rem;
+	//column-count: 4;
+	//-webkit-column-count: 4;
+	//-moz-column-count: 4;
+	//column-width: 25%;
+	//-webkit-column-width: 25%;
+	//-moz-column-width: 25%;
+
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: .7rem;
+	padding: 1rem;
+	box-sizing: border-box;
+}

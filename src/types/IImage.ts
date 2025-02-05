@@ -1,6 +1,6 @@
 export interface IImage {
-	_id: string;
+	_id?: string;
 	name: string;
 	img: string;
-	folder_id: string;
+	folder_id?: string;
 }

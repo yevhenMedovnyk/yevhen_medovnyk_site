@@ -2,11 +2,16 @@ import React from 'react';
 import s from './Gallery.page.module.scss';
 import Folder from '../../components/Folder/Folder';
 
-import { useGetFoldersQuery } from '../../redux/foldersApi';
+import { useDeleteFolderMutation, useGetFoldersQuery } from '../../redux/foldersApi';
 import { Link } from 'react-router';
 
 const GalleryPage: React.FC = () => {
 	const { data: galleryFolders = [] } = useGetFoldersQuery();
+	const [deleteFolder] = useDeleteFolderMutation();
+
+	const handleDeleteFolder = (id: number) => {
+		deleteFolder(id);
+	};
 
 	return (
 		<>
@@ -15,7 +20,7 @@ const GalleryPage: React.FC = () => {
 			</Link>
 			<div className={s.container}>
 				{galleryFolders.map((folder) => (
-					<Folder key={folder._id} {...folder} />
+					<Folder key={folder._id} {...folder} deleteFolder={handleDeleteFolder} />
 				))}
 			</div>
 		</>

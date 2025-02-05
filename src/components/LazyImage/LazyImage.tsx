@@ -1,17 +1,18 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import s from './LazyImage.module.scss';
 import { ClipLoader } from 'react-spinners';
+import { TiDelete } from 'react-icons/ti';
 
 interface LazyImageProps {
 	img: string;
 	alt: string;
+	onClickDelete?: () => void;
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({ img, alt }) => {
-	const imageRef = useRef<HTMLDivElement>(null);
-
+const LazyImage: React.FC<LazyImageProps> = ({ img, alt, onClickDelete }) => {
 	return (
-		<div ref={imageRef} className={s['image-container']}>
+		<div className={s['image-container']}>
+			{onClickDelete && <TiDelete className={s.deleteIcon} onClick={onClickDelete} />}
 			{img ? (
 				<img src={img} alt={alt} className={s['lazy-loaded-image']} />
 			) : (
