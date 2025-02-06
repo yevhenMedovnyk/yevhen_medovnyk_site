@@ -35,7 +35,7 @@ const Contacts: React.FC = () => {
 								type="text"
 								name="name"
 								placeholder="Ваше ім'я"
-								autocomplete="off"
+								autoComplete="off"
 							/>
 							<ErrorMessage name="name" component="span" className={s.error} />
 						</div>
@@ -44,7 +44,7 @@ const Contacts: React.FC = () => {
 								className={s.input}
 								name="email"
 								placeholder="Ваша електронна пошта"
-								autocomplete="off"
+								autoComplete="off"
 							/>
 							<ErrorMessage name="email" component="span" className={s.error} />
 						</div>
@@ -55,7 +55,7 @@ const Contacts: React.FC = () => {
 								className={s.textarea}
 								name="message"
 								placeholder="Введіть ваше повідомлення"
-								autocomplete="off"
+								autoComplete="off"
 							/>
 							<ErrorMessage name="message" component="span" className={s.error} />
 						</div>
