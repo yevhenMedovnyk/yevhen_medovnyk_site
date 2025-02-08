@@ -6,6 +6,7 @@ const initialState: { user: IUser } = {
 		displayName: '',
 		email: '',
 		uid: '',
+		isAdmin: false,
 	},
 };
 
@@ -14,7 +15,11 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		setUser(state, action) {
-			state.user = action.payload;
+			if (action.payload) {
+				state.user = action.payload;
+			} else {
+				console.error('Invalid payload: payload is null or undefined');
+			}
 		},
 	},
 });

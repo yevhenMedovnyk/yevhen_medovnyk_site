@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { createContext, useContext, useEffect, ReactNode } from 'react';
 import {
 	getAuth,
 	signInWithPopup,
@@ -7,10 +6,9 @@ import {
 	onAuthStateChanged,
 	signOut,
 } from 'firebase/auth';
-import { IUser } from '../types/IUser';
-import { setUser } from '../redux/slices/authSlice';
+import { useCreateUserMutation, useLazyGetUserByUIDQuery } from '../redux/usersApi';
 import { useAppDispatch } from './redux';
-import { createContext, useContext, useEffect, ReactNode } from 'react';
+import { setUser } from '../redux/slices/authSlice';
 
 const auth = getAuth();
 const AuthContext = createContext({ signInWithGoogle: async () => {}, logout: async () => {} });
@@ -18,18 +16,31 @@ const AuthContext = createContext({ signInWithGoogle: async () => {}, logout: as
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const dispatch = useAppDispatch();
 	const provider = new GoogleAuthProvider();
+	const [createUser] = useCreateUserMutation();
+	const [getUserByUID] = useLazyGetUserByUIDQuery();
 
 	const signInWithGoogle = async () => {
 		try {
 			const userCredential = await signInWithPopup(auth, provider);
 			const user = userCredential?.user;
+
 			if (user) {
-				const { displayName = '', email = '', uid = '' } = user as IUser;
-				dispatch(setUser({ displayName, email, uid }));
+				const { uid, displayName, email } = user;
+				const user_db = await getUserByUID(uid).unwrap();
+				dispatch(setUser(user_db));
+
+				if (user_db?.uid !== uid) {
+					await createUser({
+						displayName: displayName || '',
+						email: email || '',
+						uid,
+						isAdmin: false,
+					});
+				}
 			} else {
 				console.warn('No user information available');
 			}
-		} catch (error: unknown) {
+		} catch (error) {
 			console.error('Error during Google login:', error);
 		}
 	};
@@ -37,6 +48,14 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 	const logout = async () => {
 		try {
 			await signOut(auth);
+			dispatch(
+				setUser({
+					displayName: '',
+					email: '',
+					uid: '',
+					isAdmin: false,
+				})
+			);
 		} catch (error) {
 			console.error(error);
 		}
@@ -44,24 +63,21 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-			if (currentUser) {
-				dispatch(
-					setUser({
-						displayName: currentUser.displayName || '',
-						email: currentUser.email || '',
-						uid: currentUser.uid,
-					})
-				);
+			if (currentUser?.uid) {
+				getUserByUID(currentUser.uid)
+					.refetch()
+					.unwrap()
+					.then((user) => {
+						dispatch(setUser(user));
+					});
 			}
 		});
 		return () => unsubscribe();
-	}, [dispatch]);
+	}, []);
 
 	return (
 		<AuthContext.Provider value={{ signInWithGoogle, logout }}>{children}</AuthContext.Provider>
 	);
 };
 
-export const UserAuth = () => {
-	return useContext(AuthContext);
-};
+export const UserAuth = () => useContext(AuthContext);
