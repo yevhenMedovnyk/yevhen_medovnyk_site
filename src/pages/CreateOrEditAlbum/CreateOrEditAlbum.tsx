@@ -22,8 +22,8 @@ const CreateOrEditAlbum: React.FC = () => {
 	const [addAlbum, { isLoading: isCreatingAlbum, isSuccess: isAlbumCreated }] =
 		useCreateFolderMutation();
 	const [uploadImages, { isLoading: isUploadingImages }] = useUploadImagesMutation();
-	const { data: images = [] } = useGetImagesQuery(albumId);
-	const { data: albumData } = useGetFolderByIdQuery(albumId);
+	const { data: images = [] } = useGetImagesQuery(albumId, { skip: !albumId });
+	const { data: albumData } = useGetFolderByIdQuery(albumId, { skip: !albumId });
 	const [updateAlbum, { isLoading: isUpdatingAlbum }] = useUpdateFolderMutation();
 
 	const [deleteImageById] = useDeleteImageMutation();
