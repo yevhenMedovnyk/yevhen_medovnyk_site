@@ -13,6 +13,7 @@ const TitleList: ITitleList[] = [
 	{ id: 2, title: 'Магазин', match: '/store' },
 	{ id: 3, title: 'Контакти', match: '/contacts' },
 	{ id: 4, title: 'Про автора', match: '/about' },
+	{ id: 4, title: 'Адмінка', match: '/admin' },
 ];
 
 const MainTitle: React.FC = () => {
