@@ -2,17 +2,17 @@ import React from 'react';
 import s from './Gallery.page.module.scss';
 import Folder from '../../components/Folder/Folder';
 
-import { useDeleteFolderMutation, useGetFoldersQuery } from '../../redux/foldersApi';
+import { useDeleteAlbumMutation, useGetAlbumsQuery } from '../../redux/albumsApi';
 import { Link } from 'react-router';
 import { useAppSelector } from '../../hooks/redux';
 
 const GalleryPage: React.FC = () => {
-	const { data: galleryFolders = [] } = useGetFoldersQuery();
-	const [deleteFolder] = useDeleteFolderMutation();
+	const { data: galleryAlbums = [] } = useGetAlbumsQuery();
+	const [deleteAlbum] = useDeleteAlbumMutation();
 	const { isAdmin } = useAppSelector((state) => state.auth.user);
 
 	const handleDeleteFolder = (id: number) => {
-		deleteFolder(id);
+		deleteAlbum(id);
 	};
 
 	return (
@@ -23,7 +23,7 @@ const GalleryPage: React.FC = () => {
 				</Link>
 			)}
 			<div className={s.container}>
-				{galleryFolders.map((folder) => (
+				{galleryAlbums.map((folder) => (
 					<Folder key={folder._id} {...folder} deleteFolder={handleDeleteFolder} />
 				))}
 			</div>

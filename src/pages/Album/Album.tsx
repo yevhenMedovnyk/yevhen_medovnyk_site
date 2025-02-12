@@ -2,20 +2,26 @@ import React from 'react';
 import s from './Album.module.scss';
 import Gallery from '../../components/Gallery/Gallery';
 
-import { useGetImagesQuery } from '../../redux/imagesApi';
+import { useGetImageIdsQuery } from '../../redux/imagesApi';
 import { useSearchParams } from 'react-router';
 
 const Album: React.FC = () => {
-	//const { '*': albumPath } = useParams<{ '*': string }>();
-	//const albumId = albumPath?.split('/').pop();
 	const [searchParams] = useSearchParams();
 	const albumId = searchParams.get('albumId') as string;
 
-	const { data: images = [] } = useGetImagesQuery(albumId);
+	const { data: imageIdsObject = [] } = useGetImageIdsQuery(albumId);
+
+	const imageIds = imageIdsObject.map(({ _id, width, height }) => ({
+		_id,
+		width: width,
+		height: height,
+	}));
+
+	console.log(imageIds);
 
 	return (
 		<div className={s.album}>
-			<Gallery images={images} />
+			<Gallery imageIds={imageIds} />
 		</div>
 	);
 };

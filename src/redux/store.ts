@@ -1,22 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { imagesApi } from './imagesApi';
-import { foldersApi } from './foldersApi';
-import { usersApi } from './usersApi';
 import auth from './slices/authSlice';
+import { imagesApi } from './imagesApi';
+import { albumsApi } from './albumsApi';
+import { usersApi } from './usersApi';
+import { mailApi } from './mailApi';
 
 export const store = configureStore({
 	reducer: {
 		[imagesApi.reducerPath]: imagesApi.reducer,
-		[foldersApi.reducerPath]: foldersApi.reducer,
+		[albumsApi.reducerPath]: albumsApi.reducer,
 		[usersApi.reducerPath]: usersApi.reducer,
+		[mailApi.reducerPath]: mailApi.reducer,
 		auth,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat([
 			imagesApi.middleware,
-			foldersApi.middleware,
+			albumsApi.middleware,
 			usersApi.middleware,
+			mailApi.middleware,
 		]),
 });
 

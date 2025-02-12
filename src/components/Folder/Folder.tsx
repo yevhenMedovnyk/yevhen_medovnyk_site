@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi';
 import { MdFolderDelete } from 'react-icons/md';
 
-import { IFolder } from '../../types/IFolder';
+import { IFolder } from '../../types/IAlbum';
 import { useAppSelector } from '../../hooks/redux';
 
 type IFolderProps = IFolder & {

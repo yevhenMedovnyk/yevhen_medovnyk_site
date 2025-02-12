@@ -1,22 +1,24 @@
 @use "/src/styles/variables" as *;
 
-.image-container {
+.imageContainer {
 	position: relative;
 	overflow: hidden;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	max-height: 700px;
+	//min-height: 20rem;
+	max-height: 55rem;
 	height: 100%;
 	padding: 0.9rem;
-	animation: fadeIn 500ms forwards;
+	animation: fadeIn 100ms forwards;
+	margin-bottom: 0.6rem;
 
 }
 
-.loading-placeholder {
+.placeholder {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 600px;
-	height: 600px;
+	width: 100%;
+	//height: 40rem;
 }
 
 @keyframes fadeIn {
@@ -28,7 +30,7 @@
       }
     }
 
-.lazy-loaded-image {
+.image {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
