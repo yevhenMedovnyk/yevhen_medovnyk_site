@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import s from './CreateOrEditAlbum.module.scss';
 import {
-	useCreateFolderMutation,
-	useGetFolderByIdQuery,
-	useUpdateFolderMutation,
-} from '../../redux/foldersApi';
+	useCreateAlbumMutation,
+	useGetAlbumByIdQuery,
+	useUpdateAlbumMutation,
+} from '../../redux/albumsApi';
 import {
 	useDeleteImageMutation,
 	useGetImagesQuery,
@@ -20,11 +20,11 @@ const CreateOrEditAlbum: React.FC = () => {
 	const [searchParams] = useSearchParams();
 	const albumId = searchParams.get('albumId') as string;
 	const [addAlbum, { isLoading: isCreatingAlbum, isSuccess: isAlbumCreated }] =
-		useCreateFolderMutation();
+		useCreateAlbumMutation();
 	const [uploadImages, { isLoading: isUploadingImages }] = useUploadImagesMutation();
 	const { data: images = [] } = useGetImagesQuery(albumId, { skip: !albumId });
-	const { data: albumData } = useGetFolderByIdQuery(albumId, { skip: !albumId });
-	const [updateAlbum, { isLoading: isUpdatingAlbum }] = useUpdateFolderMutation();
+	const { data: albumData } = useGetAlbumByIdQuery(albumId, { skip: !albumId });
+	const [updateAlbum, { isLoading: isUpdatingAlbum }] = useUpdateAlbumMutation();
 
 	const [deleteImageById] = useDeleteImageMutation();
 
@@ -46,6 +46,22 @@ const CreateOrEditAlbum: React.FC = () => {
 			setCoverPreview(albumData.cover_img);
 		}
 	}, [albumData]);
+
+	const getImageDimensions = (file: File): Promise<{ width: number; height: number }> => {
+		return new Promise((resolve) => {
+			const img = new Image();
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => {
+				if (typeof reader.result === 'string') {
+					img.src = reader.result;
+					img.onload = () => {
+						resolve({ width: img.width, height: img.height });
+					};
+				}
+			};
+		});
+	};
 
 	const onSubmit = async (
 		values: typeof initialValues,
@@ -70,19 +86,17 @@ const CreateOrEditAlbum: React.FC = () => {
 				? await convertToBase64(values.cover_img)
 				: albumData?.cover_img;
 
-			let finalAlbumId = albumId; // ID альбому для використання при завантаженні фото
+			let finalAlbumId = albumId;
 
 			if (albumData) {
-				// 🔹 Оновлюємо існуючий альбом
 				await updateAlbum({
-					folderId: albumId,
+					albumId: albumId,
 					name: values.name,
 					link: values.link,
 					cover_img: coverBase64 || albumData.cover_img,
 				}).unwrap();
 				console.log('✅ Альбом оновлено');
 			} else {
-				// 🆕 Створюємо новий альбом
 				const album = await addAlbum({
 					name: values.name ?? '',
 					link: values.link ?? '',
@@ -94,18 +108,24 @@ const CreateOrEditAlbum: React.FC = () => {
 				}
 
 				console.log('✅ Альбом створено');
-				finalAlbumId = String(album._id); // Отримуємо новий ID альбому
+				finalAlbumId = String(album._id);
 			}
 
-			// Завантаження зображень лише якщо є albumFiles
 			if (albumFiles.length > 0 && finalAlbumId) {
 				const albumImages = await Promise.all(
-					albumFiles.map(async (file) => ({
-						img: await convertToBase64(file),
-						name: file.name,
-						folder_id: finalAlbumId, // 🔹 Передаємо правильний ID альбому
-					}))
+					albumFiles.map(async (file) => {
+						const { width, height } = await getImageDimensions(file);
+
+						return {
+							img: await convertToBase64(file),
+							name: file.name,
+							album_id: finalAlbumId,
+							width,
+							height,
+						};
+					})
 				);
+				console.log('albumImages', albumImages);
 
 				if (albumImages.length > 0) {
 					await uploadImages(albumImages).unwrap();

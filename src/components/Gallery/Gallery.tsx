@@ -6,22 +6,41 @@ import clsx from 'clsx';
 import { IImage } from '../../types/IImage';
 
 interface GalleryProps {
-	images: IImage[];
+	imageIds?: { _id: string; width: number; height: number }[];
+	images?: IImage[];
 	variant?: string;
 	onClickDeleteImage?: (index: number, id?: string) => void;
 }
 
-const Gallery: React.FC<GalleryProps> = ({ images, variant, onClickDeleteImage }) => {
+const Gallery: React.FC<GalleryProps> = ({
+	images: imageList = [],
+	imageIds: imageIdList = [],
+	variant,
+	onClickDeleteImage,
+}) => {
 	return (
 		<div className={clsx(s.container, variant && s[variant])}>
-			{images.map(({ img, _id, name }, index) => (
-				<LazyImage
-					key={_id || index}
-					img={img}
-					onClickDelete={onClickDeleteImage ? () => onClickDeleteImage(index, _id) : undefined}
-					alt={name}
-				/>
-			))}
+			{imageIdList.length > 0
+				? imageIdList.map(({ _id: imageId, width, height }, index) => (
+						<LazyImage
+							key={imageId || index}
+							imageId={imageId}
+							width={width}
+							height={height}
+							onClickDelete={
+								onClickDeleteImage ? () => onClickDeleteImage(index, imageId) : undefined
+							}
+							alt="Gallery image"
+						/>
+					))
+				: imageList?.map(({ img, name, _id }, index) => (
+						<LazyImage
+							key={_id || index}
+							img={img}
+							onClickDelete={onClickDeleteImage ? () => onClickDeleteImage(index, _id) : undefined}
+							alt={name}
+						/>
+					))}
 		</div>
 	);
 };

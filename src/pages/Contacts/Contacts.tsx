@@ -3,8 +3,10 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { contactFormSchema } from '../../schemas/contactForm.schema.ts';
 import SocialNetLinksList from '../../components/SocialNetLinks/SocialNetLinks.tsx';
 import s from './Contacts.module.scss';
+import { useSendMailMutation } from '../../redux/mailApi.ts';
 
 const Contacts: React.FC = () => {
+	const [sendMail] = useSendMailMutation();
 	const initialValues = {
 		name: '',
 		email: '',
@@ -12,6 +14,7 @@ const Contacts: React.FC = () => {
 	};
 	const onSubmit = (values: typeof initialValues, { resetForm }: { resetForm: () => void }) => {
 		console.log('onSubmit', values);
+		sendMail(values);
 		resetForm();
 	};
 
