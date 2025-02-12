@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Layout from './components/Layout/Layout';
+import AdminLayout from './components/Admin/AdminLayout/AdminLayout';
 import Contacts from './pages/Contacts/Contacts';
 import GalleryPage from './pages/GalleryPage/Gallery.page';
 import Projects from './pages/Projects/Projects';
@@ -23,6 +24,7 @@ function App(): React.ReactElement {
 					<Route path="/contacts" element={<Contacts />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/store" element={<Store />} />
+					<Route path="/admin" element={<AdminLayout />}></Route>
 				</Route>
 			</Routes>
 		</>
