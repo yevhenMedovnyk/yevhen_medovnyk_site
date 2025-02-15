@@ -1,0 +1,86 @@
+@use '/src/styles/variables.scss' as *;
+
+.StoreItemContainer{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		"img textWrapper";
+	width: 100%;
+	gap: 1rem;
+	padding: 1rem;
+	border: 1px solid $color-border-secondary;
+	border-radius: 5px;
+	box-shadow: 1px 1px 6px 1px  rgba(44, 63, 82, 0.42);
+	background-color: $color-bg-secondary;
+	animation: fadeIn 900ms forwards;
+
+}
+
+.imgContainer{
+	grid-area: img;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	overflow: hidden;
+}
+
+.img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: all 0.15s ease-in-out;
+	&:hover{
+		transform: scale(1.006);
+	}
+}
+
+.textWrapper{
+	grid-area: textWrapper;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+
+.name{
+	font-size: 1.1rem;
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+	letter-spacing: .1em;
+	transition: all 0.1s ease-in-out;
+	&:hover{
+		color: $color-secondary;
+	}
+}
+
+.price{
+	font-size: 1rem;
+	font-weight: 600;
+	margin-top: 0.9rem;
+}
+
+.textWrapper{
+	& p{
+		font-size: 0.88rem;
+		color: $color-tertiary;
+		line-height: 1.3;
+	}
+}
+
+.placeholder{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	background-color: $color-bg-secondary;
+}
+
+@keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
