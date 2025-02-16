@@ -4,6 +4,7 @@ import { contactFormSchema } from '../../schemas/contactForm.schema.ts';
 import SocialNetLinksList from '../../components/SocialNetLinks/SocialNetLinks.tsx';
 import s from './Contacts.module.scss';
 import { useSendMailMutation } from '../../redux/mailApi.ts';
+import Button from '../../components/UI/Button/Button.tsx';
 
 const Contacts: React.FC = () => {
 	const [sendMail] = useSendMailMutation();
@@ -62,9 +63,7 @@ const Contacts: React.FC = () => {
 							/>
 							<ErrorMessage name="message" component="span" className={s.error} />
 						</div>
-						<button className={s.button} type="submit">
-							Надіслати
-						</button>
+						<Button type="submit" name="Надіслати" class_name="contactPage" />
 					</Form>
 				)}
 			</Formik>

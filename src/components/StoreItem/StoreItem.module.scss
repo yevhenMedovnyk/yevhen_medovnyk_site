@@ -1,73 +1,125 @@
-@use '/src/styles/variables.scss' as *;
+@use "/src/styles/variables.scss" as *;
 
-.StoreItemContainer{
+.StoreItemContainer {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-areas:
-		"img textWrapper";
+	grid-template-areas: "img textWrapper";
 	width: 100%;
+	min-height: 35rem;
 	gap: 1rem;
-	padding: 1rem;
+	padding: 0 1rem;
 	border: 1px solid $color-border-secondary;
 	border-radius: 5px;
-	box-shadow: 1px 1px 6px 1px  rgba(44, 63, 82, 0.42);
+	box-shadow: 1px 1px 6px 1px rgba(44, 63, 82, 0.42);
 	background-color: $color-bg-secondary;
 	animation: fadeIn 900ms forwards;
+	font-family: $font-secondary;
+}
+
+.StoreItemContainer.fullPage {
+	padding: 2rem 1rem;
 
 }
 
-.imgContainer{
+.imgContainer {
 	grid-area: img;
 	width: 100%;
 	height: 100%;
-	object-fit: contain;
 	overflow: hidden;
 }
 
-.img{
+.img {
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
 	transition: all 0.15s ease-in-out;
-	&:hover{
+	&:hover {
 		transform: scale(1.006);
 	}
 }
 
-.textWrapper{
+.textWrapper {
 	grid-area: textWrapper;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	text-align: center;
+	border: 1px solid $color-border-secondary;
+	border-radius: 5px;
+	padding: 2rem;
+	background-color: $color-bg-secondary;
+
 }
 
-.name{
-	font-size: 1.1rem;
-	font-weight: 600;
+.textWrapper:not(.fullPage) {
+	margin: 1rem;
+	
+}
+
+
+
+.name {
+	font-size: 1.6rem;
+	font-weight: 500;
 	margin-bottom: 0.5rem;
-	letter-spacing: .1em;
+	letter-spacing: 0.08em;
 	transition: all 0.1s ease-in-out;
-	&:hover{
-		color: $color-secondary;
+	color: $color-fourth;
+	&:hover {
+		color: $color-border-tertiary;
 	}
 }
 
-.price{
-	font-size: 1rem;
-	font-weight: 600;
-	margin-top: 0.9rem;
+.textWrapper.fullPage {
+	justify-content: start;
+	text-align: left;
+	
+	.name{
+		font-size: 2.2rem;
+	}
 }
 
-.textWrapper{
-	& p{
-		font-size: 0.88rem;
+.price {
+	font-size: 1.3rem;
+	font-weight: 500;
+}
+
+.price:last-child {
+	margin-top: 0.9em;
+}
+
+.price:not(:last-child) {
+	margin-bottom: 3rem;
+}
+
+.printInfo{
+	margin-bottom: .8rem;
+}
+
+
+
+.isFramed{
+	margin-bottom: 0.3rem;
+	span{
+		font-size: 1.2rem;
+		font-weight: 600;
+	}
+}
+
+.textWrapper {
+	& p {
+		font-size: 1.2rem;
 		color: $color-tertiary;
 		line-height: 1.3;
 	}
 }
 
-.placeholder{
+.note{
+	font-size: 0.95rem !important;
+	margin-bottom: 2rem;
+}
+
+.placeholder {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -77,10 +129,10 @@
 }
 
 @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

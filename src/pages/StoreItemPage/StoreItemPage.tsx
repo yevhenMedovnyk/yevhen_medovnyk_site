@@ -6,8 +6,6 @@ import { useParams } from 'react-router';
 const StoreItemPage = () => {
 	const { product_id } = useParams();
 
-	console.log(product_id);
-
 	return (
 		<div className={s.StoreItemPageContainer}>
 			<StoreItem full_page productId={product_id as string} width={1060} height={1060} />
