@@ -1,0 +1,10 @@
+@use "/src/styles/variables" as *;
+
+.storeContainer{
+	width: 90%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+	font-family: $font-secondary;
+}

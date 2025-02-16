@@ -1,0 +1,29 @@
+@use "/src/styles/variables" as *;
+
+.button{
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	align-self: center;
+	border-radius: 8px;
+	font-size: 0.8rem;
+	padding: .5em 1em;
+	background-color: $color-secondary;
+	color: $color-bg;
+	text-align: center;
+	transition: all 0.2s ease-in-out;
+	&:hover{
+		opacity: 0.9;
+	}
+}
+
+.button.storeItem{
+	margin-right: auto;
+	width: 60%;
+	font-size: 1.2rem;
+}
+
+.button.contactPage{
+	padding: 1em 3em;
+}

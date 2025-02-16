@@ -14,7 +14,7 @@ const navLinksList: INavLinks[] = [
 		to: '/',
 	},
 	{
-		title: 'Магазин',
+		title: 'Магазин принтів',
 		to: '/store',
 	},
 	{

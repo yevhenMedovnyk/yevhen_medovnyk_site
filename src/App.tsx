@@ -10,6 +10,7 @@ import Store from './pages/Store/Store';
 import About from './pages/About/About';
 import Album from './pages/Album/Album';
 import CreateOrEditAlbum from './pages/CreateOrEditAlbum/CreateOrEditAlbum';
+import StoreItemPage from './pages/StoreItemPage/StoreItemPage';
 
 function App(): React.ReactElement {
 	return (
@@ -24,6 +25,7 @@ function App(): React.ReactElement {
 					<Route path="/contacts" element={<Contacts />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/store" element={<Store />} />
+					<Route path="/store/:product_id" element={<StoreItemPage />} />
 					<Route path="/admin" element={<AdminLayout />}></Route>
 				</Route>
 			</Routes>
