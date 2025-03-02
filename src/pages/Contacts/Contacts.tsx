@@ -60,6 +60,7 @@ const Contacts: React.FC = () => {
 								name="message"
 								placeholder="Введіть ваше повідомлення"
 								autoComplete="off"
+								as="textarea"
 							/>
 							<ErrorMessage name="message" component="span" className={s.error} />
 						</div>
