@@ -1,7 +1,7 @@
 import { IImage } from './IImage';
 
 export interface IProduct {
-	_id: string;
+	_id: number;
 	code_product: number;
 	name: string;
 	captured_info: string;
@@ -12,4 +12,6 @@ export interface IProduct {
 	size_without_borders: string;
 	isLimited: boolean;
 	imgs: IImage[];
+	isFramed: boolean;
+	quantity?: number;
 }
