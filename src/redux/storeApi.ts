@@ -5,19 +5,19 @@ import { IStoreItem } from '../types/IStoreItem';
 export const storeApi = createApi({
 	reducerPath: 'storeApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: baseUrl,
+		baseUrl: baseUrl + 'store/',
 	}),
 	tagTypes: ['Store'],
 	endpoints: (builder) => ({
 		getProducts: builder.query<IStoreItem[], void>({
-			query: () => '/store',
+			query: () => 'store-items',
 			providesTags: (result) => (result ? [{ type: 'Store' as const, id: 'LIST' }] : []),
 		}),
 		getProductIds: builder.query<
 			{ _id: string; imgs: { width: number; height: number }[] }[],
 			void
 		>({
-			query: () => '/store-item-ids',
+			query: () => 'store-item-id',
 			providesTags: (result) => (result ? [{ type: 'Store' as const, id: 'LIST' }] : []),
 		}),
 		getProductById: builder.query<IStoreItem, string>({

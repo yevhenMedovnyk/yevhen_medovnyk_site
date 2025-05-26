@@ -6,6 +6,7 @@ import { albumsApi } from './albumsApi';
 import { usersApi } from './usersApi';
 import { storeApi } from './storeApi';
 import { mailApi } from './mailApi';
+import { checkoutApi } from './checkoutApi';
 
 export const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
 		[usersApi.reducerPath]: usersApi.reducer,
 		[storeApi.reducerPath]: storeApi.reducer,
 		[mailApi.reducerPath]: mailApi.reducer,
+		[checkoutApi.reducerPath]: checkoutApi.reducer,
 		auth,
 	},
 	middleware: (getDefaultMiddleware) =>
@@ -23,6 +25,7 @@ export const store = configureStore({
 			usersApi.middleware,
 			mailApi.middleware,
 			storeApi.middleware,
+			checkoutApi.middleware,
 		]),
 });
 

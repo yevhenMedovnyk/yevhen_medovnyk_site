@@ -10,16 +10,16 @@ export const albumsApi = createApi({
 	tagTypes: ['Albums'],
 	endpoints: (builder) => ({
 		getAlbums: builder.query<IAlbum[], void>({
-			query: () => '/',
+			query: () => 'albums',
 			providesTags: (result) => (result ? [{ type: 'Albums' as const, id: 'LIST' }] : []),
 		}),
 		getAlbumById: builder.query<IAlbum, string>({
-			query: (id) => `/album?albumId=${id}`,
+			query: (id) => `albums/album?albumId=${id}`,
 			providesTags: (result) => (result ? [{ type: 'Albums' as const, id: 'LIST' }] : []),
 		}),
 		createAlbum: builder.mutation<IAlbum, IAlbum>({
 			query: (newAlbum) => ({
-				url: '/create-album',
+				url: 'albums/create-album',
 				method: 'POST',
 				body: newAlbum,
 			}),
@@ -27,7 +27,7 @@ export const albumsApi = createApi({
 		}),
 		updateAlbum: builder.mutation<IAlbum, Partial<IAlbum> & { albumId: string }>({
 			query: ({ albumId, ...updatedData }) => ({
-				url: `/update-album`,
+				url: `albums/update-album`,
 				method: 'PUT',
 				body: { albumId, ...updatedData },
 			}),
@@ -36,7 +36,7 @@ export const albumsApi = createApi({
 
 		deleteAlbum: builder.mutation<{ success: boolean }, number>({
 			query: (albumId) => ({
-				url: `/delete-album?albumId=${albumId}`,
+				url: `albums/delete-album?albumId=${albumId}`,
 				method: 'POST',
 			}),
 			invalidatesTags: [{ type: 'Albums' as const, id: 'LIST' }],

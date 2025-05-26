@@ -5,23 +5,23 @@ import { baseUrl } from '../constants';
 export const imagesApi = createApi({
 	reducerPath: 'imagesApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: baseUrl + 'album-gallery',
+		baseUrl: baseUrl + 'images/',
 	}),
 	tagTypes: ['Images'],
 
 	endpoints: (builder) => ({
 		getImages: builder.query<IImage[], string | undefined>({
-			query: (albumId) => `?albumId=${albumId}`,
+			query: (albumId) => `all-images-in-album?albumId=${albumId}`,
 			providesTags: (result) => (result ? [{ type: 'Images' as const, id: 'LIST' }] : []),
 		}),
 		getImageIds: builder.query<{ _id: string; width: number; height: number }[], string>({
-			query: (albumId) => `/image-ids?albumId=${albumId}`,
+			query: (albumId) => `/image-id-in-album?albumId=${albumId}`,
 			providesTags: (result) => (result ? [{ type: 'Images' as const, id: 'LIST' }] : []),
 		}),
 
 		// ❗ Отримати конкретне зображення
 		getImage: builder.query<IImage, string>({
-			query: (imageId) => `/image?imageId=${imageId}`,
+			query: (imageId) => `/image-by-id?imageId=${imageId}`,
 			providesTags: (result) => (result ? [{ type: 'Images' as const, id: 'LIST' }] : []),
 		}),
 		uploadImages: builder.mutation({
