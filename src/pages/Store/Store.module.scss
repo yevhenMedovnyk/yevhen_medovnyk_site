@@ -1,10 +1,21 @@
 @use "/src/styles/variables" as *;
+@use "/src/styles/mixins" as *;
 
 .storeContainer{
-	width: 90%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	width: 95%;
+	//display: flex;
+	//flex-wrap: wrap;
+	//justify-content: center;
+	//flex-direction: column;
+	//align-items: center;
 	gap: 2rem;
 	font-family: $font-secondary;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+	place-content: center;
+
+	@include tablet{
+		grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+	}
+	
 }

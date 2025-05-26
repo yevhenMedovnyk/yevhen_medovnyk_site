@@ -10,7 +10,7 @@ export const mailApi = createApi({
 	endpoints: (builder) => ({
 		sendMail: builder.mutation({
 			query: (mail) => ({
-				url: '/send-mail',
+				url: '/mail/send-mail',
 				method: 'POST',
 				body: mail,
 			}),

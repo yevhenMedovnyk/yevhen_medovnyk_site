@@ -1,3 +1,5 @@
+@use "/src/styles/mixins" as *;
+
 .container {
 	margin: 2rem auto 3.3rem;
 	padding: 0 2rem;
@@ -7,6 +9,19 @@
 	column-width: 50%;
 	-webkit-column-width: 50%;
 	-moz-column-width: 50%;
+
+	@include large_desktop{
+		column-count: 1;
+		-webkit-column-count: 1;
+		-moz-column-count: 1;
+		column-width: 100%;
+		-webkit-column-width: 100%;
+		-moz-column-width: 100%;
+		padding: 0 1rem;
+	}
+	@include tablet{
+		padding: 0;
+	}
 
 	//display: grid;
 	//grid-template-columns: 1fr 1fr; 

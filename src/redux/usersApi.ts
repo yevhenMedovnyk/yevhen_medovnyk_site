@@ -5,17 +5,17 @@ import { baseUrl } from '../constants';
 export const usersApi = createApi({
 	reducerPath: 'usersApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: baseUrl,
+		baseUrl: baseUrl + 'user/',
 	}),
 	tagTypes: ['Users'],
 	endpoints: (builder) => ({
 		getUserByUID: builder.query<IUser, string | null>({
-			query: (uid) => `/user?uid=${uid}`,
+			query: (uid) => `get-user?uid=${uid}`,
 			providesTags: (result) => [{ type: 'Users', id: result?.uid }],
 		}),
 		createUser: builder.mutation<IUser, IUser>({
 			query: (newUser) => ({
-				url: '/user-create',
+				url: 'create-user',
 				method: 'POST',
 				body: newUser,
 			}),

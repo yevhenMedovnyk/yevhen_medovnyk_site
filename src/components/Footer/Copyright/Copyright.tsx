@@ -12,7 +12,7 @@ const Copyright: React.FC = () => {
 					та будь-яке їх використання без згоди автора заборонено.
 					<br />
 				</span>
-				<span>2024 - {new Date().getFullYear()}</span>
+				<span>{new Date().getFullYear()}</span>
 			</p>
 		</div>
 	);
