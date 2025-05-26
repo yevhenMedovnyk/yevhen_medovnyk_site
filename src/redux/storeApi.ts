@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { baseUrl } from '../constants';
-import { IStoreItem } from '../types/IStoreItem';
+import { IProduct } from '../types/IProduct';
 
 export const storeApi = createApi({
 	reducerPath: 'storeApi',
@@ -9,7 +9,7 @@ export const storeApi = createApi({
 	}),
 	tagTypes: ['Store'],
 	endpoints: (builder) => ({
-		getProducts: builder.query<IStoreItem[], void>({
+		getProducts: builder.query<IProduct[], void>({
 			query: () => 'store-items',
 			providesTags: (result) => (result ? [{ type: 'Store' as const, id: 'LIST' }] : []),
 		}),
@@ -20,7 +20,7 @@ export const storeApi = createApi({
 			query: () => 'store-item-id',
 			providesTags: (result) => (result ? [{ type: 'Store' as const, id: 'LIST' }] : []),
 		}),
-		getProductById: builder.query<IStoreItem, string>({
+		getProductById: builder.query<IProduct, string>({
 			query: (product_id) => ({
 				url: '/store-item',
 				params: { product_id },
