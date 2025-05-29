@@ -18,7 +18,7 @@ function App(): React.ReactElement {
 			<Routes>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<GalleryPage />} />
-					<Route path="/album/*" element={<Album />} />
+					<Route path="/category/*" element={<Album />} />
 					<Route path="/create-edit-album/*" element={<CreateOrEditAlbum />} />
 					<Route path="/create-album" element={<CreateOrEditAlbum />} />
 					<Route path="/projects" element={<Projects />} />
