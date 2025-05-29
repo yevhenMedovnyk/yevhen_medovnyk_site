@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import { useAppSelector } from '../../hooks/redux';
 
 const GalleryPage: React.FC = () => {
-	const { data: galleryAlbums = [] } = useGetAlbumsQuery();
+	const { data: galleryAlbums = [] } = useGetAlbumsQuery('street-photography');
 	const [deleteAlbum] = useDeleteAlbumMutation();
 	const { isAdmin } = useAppSelector((state) => state.auth.user);
 

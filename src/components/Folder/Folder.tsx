@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import { BiEdit } from 'react-icons/bi';
 import { MdFolderDelete } from 'react-icons/md';
 
-import { IFolder } from '../../types/IAlbum';
+import { IAlbum } from '../../types/IAlbum';
 import { useAppSelector } from '../../hooks/redux';
 
-type IFolderProps = IFolder & {
+type IFolderProps = IAlbum & {
 	deleteFolder: (id: number) => void;
 };
 
-const Folder: React.FC<IFolderProps> = ({ cover_img, name, link, _id, deleteFolder }) => {
+const Folder: React.FC<IFolderProps> = ({ cover_img, name, category, _id, deleteFolder }) => {
 	const { isAdmin } = useAppSelector((state) => state.auth.user);
 
 	return (
@@ -39,10 +39,10 @@ const Folder: React.FC<IFolderProps> = ({ cover_img, name, link, _id, deleteFold
 				</div>
 			)}
 			<div className={s.container}>
-				<Link to={`/${link}?albumId=${_id}`} className={s.imgLink}>
+				<Link to={`/category/${category}?id=${_id}`} className={s.imgLink}>
 					<img src={cover_img} alt="album_cover" />
 				</Link>
-				<Link to={link} className={s.title}>
+				<Link to={category} className={s.title}>
 					<span className={s.albumName}>{name}</span>
 				</Link>
 			</div>

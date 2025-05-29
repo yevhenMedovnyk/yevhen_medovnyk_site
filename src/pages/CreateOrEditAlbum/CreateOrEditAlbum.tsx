@@ -36,7 +36,7 @@ const CreateOrEditAlbum: React.FC = () => {
 	const initialValues = {
 		name: albumData ? albumData.name : '',
 		cover_img: null as File | null,
-		link: 'album',
+		category: 'street-photography',
 		album_images: [] as File[],
 	};
 
@@ -92,14 +92,14 @@ const CreateOrEditAlbum: React.FC = () => {
 				await updateAlbum({
 					albumId: albumId,
 					name: values.name,
-					link: values.link,
+					category: values.category,
 					cover_img: coverBase64 || albumData.cover_img,
 				}).unwrap();
 				console.log('✅ Альбом оновлено');
 			} else {
 				const album = await addAlbum({
 					name: values.name ?? '',
-					link: values.link ?? '',
+					category: values.category ?? '',
 					cover_img: coverBase64 ?? '',
 				}).unwrap();
 
@@ -137,7 +137,7 @@ const CreateOrEditAlbum: React.FC = () => {
 			setCoverPreview(null);
 			setImagePreviews([]);
 			setAlbumFiles([]);
-			navigate(`/album?albumId=${finalAlbumId}`);
+			navigate(`/category/${values.category}?albumId=${finalAlbumId}`);
 		} catch (err) {
 			console.error('❌ Помилка при створенні/оновленні альбому:', err);
 			alert('Не вдалося створити або оновити альбом. Спробуйте ще раз.');

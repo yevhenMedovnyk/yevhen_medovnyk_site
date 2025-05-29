@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router';
 
 const Album: React.FC = () => {
 	const [searchParams] = useSearchParams();
-	const albumId = searchParams.get('albumId') as string;
+	const albumId = searchParams.get('id') as string;
 
 	const { data: imageIdsObject = [] } = useGetImageIdsQuery(albumId);
 
