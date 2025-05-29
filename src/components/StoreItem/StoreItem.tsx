@@ -95,7 +95,12 @@ const StoreItem: React.FC<IStoreItemProps> = ({ productId, full_page = false, on
 							)}
 						</div>
 						{full_page && <p className={s.note}>{product?.note}</p>}
-						{!full_page && <span className={s.price}>{product?.price} грн</span>}
+						{!full_page && (
+							<span className={s.price}>
+								{product?.price}
+								{product?.price ? ' грн' : ''}
+							</span>
+						)}
 						{full_page && product && onClickBuy && (
 							<Button
 								type="button"
