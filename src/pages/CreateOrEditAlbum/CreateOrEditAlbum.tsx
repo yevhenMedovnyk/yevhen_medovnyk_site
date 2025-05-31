@@ -36,7 +36,7 @@ const CreateOrEditAlbum: React.FC = () => {
 	const initialValues = {
 		name: albumData ? albumData.name : '',
 		cover_img: null as File | null,
-		category: 'street-photography',
+		category: 'gallery',
 		album_images: [] as File[],
 	};
 
