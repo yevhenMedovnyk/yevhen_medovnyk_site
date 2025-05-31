@@ -140,7 +140,7 @@ const CreateOrEditAlbum: React.FC = () => {
 			setCoverPreview(null);
 			setImagePreviews([]);
 			setAlbumFiles([]);
-			navigate(`/category/${values.category}?albumId=${finalAlbumId}`);
+			navigate(`/category/${values.category}?id=${finalAlbumId}`);
 		} catch (err) {
 			console.error('❌ Помилка при створенні/оновленні альбому:', err);
 			alert('Не вдалося створити або оновити альбом. Спробуйте ще раз.');
