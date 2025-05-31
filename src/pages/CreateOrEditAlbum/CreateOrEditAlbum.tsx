@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import s from './CreateOrEditAlbum.module.scss';
 import {
 	useCreateAlbumMutation,
@@ -33,12 +33,15 @@ const CreateOrEditAlbum: React.FC = () => {
 	const [albumName, setAlbumName] = useState('');
 	const [albumFiles, setAlbumFiles] = useState<File[]>([]);
 
-	const initialValues = {
-		name: albumData ? albumData.name : '',
-		cover_img: null as File | null,
-		category: 'gallery',
-		album_images: [] as File[],
-	};
+	const initialValues = useMemo(
+		() => ({
+			name: albumData?.name ?? '',
+			cover_img: null as File | null,
+			category: albumData?.category ?? 'gallery',
+			album_images: [] as File[],
+		}),
+		[albumData]
+	);
 
 	useEffect(() => {
 		if (albumData) {
@@ -185,6 +188,13 @@ const CreateOrEditAlbum: React.FC = () => {
 		Promise.all(previews).then(setImagePreviews);
 	};
 
+	const handleCategoryChange = (
+		event: React.ChangeEvent<HTMLInputElement>,
+		setFieldValue: FormikHelpers<typeof initialValues>['setFieldValue']
+	) => {
+		setFieldValue('category', event.target.value);
+	};
+
 	const deleteImage = (index: number, _id?: string) => {
 		if (_id) {
 			deleteImageById(_id);
@@ -201,7 +211,7 @@ const CreateOrEditAlbum: React.FC = () => {
 
 	return (
 		<div className={s.container}>
-			<h1 className={s.title}>Створіть альбом</h1>
+			<h1 className={s.title}>Створення альбому</h1>
 			<Formik initialValues={initialValues} onSubmit={onSubmit} enableReinitialize={true}>
 				{(formik) => (
 					<Form className={s.form}>
@@ -230,7 +240,7 @@ const CreateOrEditAlbum: React.FC = () => {
 									<ErrorMessage name="cover_img" component="span" className={s.error} />
 								</div>
 								<div className={s.inputContainer}>
-									<label className={s.label}>Додати зображення в альбом:</label>
+									<label className={s.label}>Додати зображення до альбому:</label>
 									<input
 										className={s.input}
 										type="file"
@@ -239,6 +249,17 @@ const CreateOrEditAlbum: React.FC = () => {
 										onChange={(event) => handleImagesChange(event, formik.setFieldValue)}
 									/>
 									<ErrorMessage name="album_images" component="span" className={s.error} />
+								</div>
+								<div className={s.inputContainer}>
+									<label className={s.label}>Категорія:</label>
+									<input
+										className={s.input}
+										type="text"
+										placeholder="Категорія альбому"
+										{...formik.getFieldProps('category')}
+										onChange={(event) => handleCategoryChange(event, formik.setFieldValue)}
+									/>
+									<ErrorMessage name="category" component="span" className={s.error} />
 								</div>
 							</div>
 							<div className={s.coverPreviewContainer}>
