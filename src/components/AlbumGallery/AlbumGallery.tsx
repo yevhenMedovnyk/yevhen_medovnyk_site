@@ -11,7 +11,9 @@ interface IAlbumGalleryProps {
 }
 
 const AlbumGallery: React.FC<IAlbumGalleryProps> = ({ category }) => {
-	const { data: galleryAlbums = [] } = useGetAlbumsQuery(category);
+	const { data: galleryAlbums = [] } = useGetAlbumsQuery(category, {
+		refetchOnMountOrArgChange: true,
+	});
 	const [deleteAlbum] = useDeleteAlbumMutation();
 	const { isAdmin } = useAppSelector((state) => state.auth.user);
 
