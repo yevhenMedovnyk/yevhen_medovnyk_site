@@ -3,7 +3,9 @@ import s from './LazyImage.module.scss';
 import { useInView } from 'react-intersection-observer';
 import { ClipLoader } from 'react-spinners';
 import { TiDelete } from 'react-icons/ti';
-import { useGetImageQuery } from '../../redux/imagesApi';
+import { useAddImageDescriptionMutation, useGetImageQuery } from '../../redux/imagesApi';
+import clsx from 'clsx';
+import Button from '../UI/Button/Button';
 
 interface LazyImageProps {
 	imageId?: string;
@@ -12,6 +14,8 @@ interface LazyImageProps {
 	width?: number;
 	height?: number;
 	onClickDelete?: () => void;
+	editMode?: boolean;
+	description?: string;
 }
 
 const LazyImage: React.FC<LazyImageProps> = ({
@@ -21,13 +25,16 @@ const LazyImage: React.FC<LazyImageProps> = ({
 	onClickDelete,
 	width,
 	height,
+	editMode = false,
+	description,
 }) => {
 	const { ref, inView } = useInView({
-		threshold: 0.1,
+		threshold: 0,
 		triggerOnce: true,
 	});
 
 	const [loadImage, setLoadImage] = useState(false);
+	const [imageDesc, setImageDesc] = useState(description || '');
 
 	// ❗ Виконуємо запит тільки якщо `loadImage === true`
 	const {
@@ -48,11 +55,21 @@ const LazyImage: React.FC<LazyImageProps> = ({
 		console.error(error);
 	}
 
+	const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setImageDesc(e.target.value);
+	};
+
+	const [saveDesc, { isLoading: isDescLoading, isSuccess }] = useAddImageDescriptionMutation();
+
 	return (
 		<div ref={ref} className={s.imageContainer}>
 			{onClickDelete && <TiDelete className={s.deleteIcon} onClick={onClickDelete} />}
 			{!isLoading && (image?.img || img) ? (
-				<img src={image?.img || img} alt={image?.name || alt} className={s.image} />
+				<img
+					src={image?.img || img}
+					alt={image?.name || alt}
+					className={clsx(s.image, editMode && s.editMode)}
+				/>
 			) : (
 				<div
 					className={s.placeholder}
@@ -60,6 +77,23 @@ const LazyImage: React.FC<LazyImageProps> = ({
 				>
 					<ClipLoader color="#b0bab8" size={50} />
 				</div>
+			)}
+			{editMode && imageId ? (
+				<>
+					<textarea
+						className={s.descriptionInput}
+						value={imageDesc}
+						onChange={handleDescriptionChange}
+					/>
+					<Button
+						name={isSuccess ? 'Збережено' : 'Зберегти'}
+						class_name="addDesc"
+						onClick={() => saveDesc({ imageId, description: imageDesc }).unwrap()}
+						disabled={isDescLoading || !imageDesc || isSuccess}
+					/>
+				</>
+			) : (
+				<span className={s.description}>{image?.description}</span>
 			)}
 		</div>
 	);

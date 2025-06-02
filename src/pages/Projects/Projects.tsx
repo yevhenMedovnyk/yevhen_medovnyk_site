@@ -1,8 +1,12 @@
 import React from 'react';
-import s from './Projects.module.scss';
+import AlbumGallery from '../../components/AlbumGallery/AlbumGallery';
 
 const Projects: React.FC = () => {
-	return <div className={s.container}>Projects</div>;
+	return (
+		<>
+			<AlbumGallery category="projects" />
+		</>
+	);
 };
 
 export default Projects;
