@@ -42,6 +42,27 @@
 	animation: fadeIn 500ms forwards;
 }
 
+.image.editMode{
+	height:fit-content;
+	margin-bottom: .6rem;
+}
+
+.descriptionInput{
+		width: 100%;
+	padding: 0.4rem;
+	border: 1px solid $color-border-secondary;
+	border-radius: 4px;
+	margin-bottom: 0.5rem;
+}
+
+.description{
+	display: block;
+	margin-top: .3rem;
+	font-size: 0.8rem;
+	color: $color-tertiary;
+	font-weight: 300;
+}
+
 .deleteIcon{
 	z-index: 10;
 	position: absolute;

@@ -4,7 +4,9 @@ import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../redux/storeApi';
 import { ClipLoader } from 'react-spinners';
-import Swiper from '../Swiper/Swiper';
+//import Swiper from '../Swiper/Swiper';
+const Swiper = React.lazy(() => import('../Swiper/Swiper'));
+
 import Button from '../UI/Button/Button';
 import s from './StoreItem.module.scss';
 import { IProduct } from '../../types/IProduct';
@@ -19,7 +21,8 @@ interface IStoreItemProps {
 
 const StoreItem: React.FC<IStoreItemProps> = ({ productId, full_page = false, onClickBuy }) => {
 	const [loadImage, setLoadImage] = useState(false);
-	const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+	//const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+	const { ref, inView } = useInView({ threshold: 0, triggerOnce: true });
 
 	const {
 		data: product,

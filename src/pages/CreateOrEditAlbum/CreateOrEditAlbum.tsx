@@ -298,6 +298,7 @@ const CreateOrEditAlbum: React.FC = () => {
 				images={[...imagePreviews, ...images]}
 				onClickDeleteImage={deleteImage}
 				variant="createEditAlbum"
+				editMode={true}
 			/>
 		</div>
 	);

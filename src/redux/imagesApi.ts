@@ -39,6 +39,14 @@ export const imagesApi = createApi({
 			}),
 			invalidatesTags: ['Images'],
 		}),
+		addImageDescription: builder.mutation({
+			query: (data) => ({
+				url: '/add-image-description',
+				method: 'POST',
+				body: data,
+			}),
+			invalidatesTags: ['Images'],
+		}),
 	}),
 });
 
@@ -48,4 +56,5 @@ export const {
 	useDeleteImageMutation,
 	useGetImageQuery,
 	useGetImageIdsQuery,
+	useAddImageDescriptionMutation,
 } = imagesApi;
