@@ -73,7 +73,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
 			) : (
 				<div
 					className={s.placeholder}
-					style={{ aspectRatio: width && height && `${width} / ${height}` }}
+					style={width && height ? { aspectRatio: `${width} / ${height}` } : {}}
 				>
 					<ClipLoader color="#b0bab8" size={50} />
 				</div>

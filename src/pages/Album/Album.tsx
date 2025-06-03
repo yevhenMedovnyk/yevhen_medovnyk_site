@@ -17,8 +17,6 @@ const Album: React.FC = () => {
 		height: height,
 	}));
 
-	console.log(imageIds);
-
 	return (
 		<div className={s.album}>
 			<Gallery imageIds={imageIds} />
