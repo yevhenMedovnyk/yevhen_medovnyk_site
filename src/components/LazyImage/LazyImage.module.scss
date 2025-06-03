@@ -2,6 +2,9 @@
 @use "/src/styles/mixins" as *;
 
 .imageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	position: relative;
 	overflow: hidden;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -53,6 +56,7 @@
 	border: 1px solid $color-border-secondary;
 	border-radius: 4px;
 	margin-bottom: 0.5rem;
+	margin-top: auto;
 }
 
 .description{
