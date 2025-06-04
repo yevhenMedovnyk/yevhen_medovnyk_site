@@ -28,11 +28,12 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
 		const [loadImage, setLoadImage] = useState(false);
 		const [imageDesc, setImageDesc] = useState(description || '');
 
+		// Збережи URL зображення у локальному стейті, щоб він не змінювався без потреби
+		const [stableImgSrc, setStableImgSrc] = useState<string | undefined>(img);
+
 		const shouldFetch = !img && loadImage && !!imageId;
 
-		console.log(imageId);
-
-		// ❗ Виконуємо запит тільки якщо `loadImage === true`
+		// Отримуємо зображення з бекенду (Cloudinary URL)
 		const {
 			data: image,
 			isLoading,
@@ -42,10 +43,15 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
 		});
 
 		useEffect(() => {
-			if (inView) {
-				setLoadImage(true);
-			}
+			if (inView) setLoadImage(true);
 		}, [inView]);
+
+		// Коли отримуємо нове зображення, встановлюємо URL в локальний стейт
+		useEffect(() => {
+			if (image?.img && image.img !== stableImgSrc) {
+				setStableImgSrc(image.img);
+			}
+		}, [image?.img, stableImgSrc]);
 
 		if (error) {
 			console.error(error);
@@ -60,11 +66,13 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
 		return (
 			<div ref={ref} className={s.imageContainer}>
 				{onClickDelete && <TiDelete className={s.deleteIcon} onClick={onClickDelete} />}
-				{!isLoading && (image?.img || img) ? (
+				{!isLoading && stableImgSrc ? (
 					<img
-						src={image?.img || img}
+						src={stableImgSrc}
 						alt={image?.name || alt}
 						className={clsx(s.image, editMode && s.editMode)}
+						width={width}
+						height={height}
 					/>
 				) : (
 					<div
