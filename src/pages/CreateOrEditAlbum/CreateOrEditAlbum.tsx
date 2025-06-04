@@ -22,7 +22,7 @@ const CreateOrEditAlbum: React.FC = () => {
 	const [addAlbum, { isLoading: isCreatingAlbum, isSuccess: isAlbumCreated }] =
 		useCreateAlbumMutation();
 	const [uploadImages, { isLoading: isUploadingImages }] = useUploadImagesMutation();
-	const { data: images = [], refetch } = useGetImagesQuery(albumId, { skip: !albumId });
+	const { data: images = [] } = useGetImagesQuery(albumId, { skip: !albumId });
 	const { data: albumData } = useGetAlbumByIdQuery(albumId, { skip: !albumId });
 	const [updateAlbum, { isLoading: isUpdatingAlbum }] = useUpdateAlbumMutation();
 
@@ -190,7 +190,6 @@ const CreateOrEditAlbum: React.FC = () => {
 	const deleteImage = async (index: number, _id?: string) => {
 		if (_id) {
 			await deleteImageById(_id).unwrap();
-			await refetch();
 		} else {
 			const newFiles = [...albumFiles];
 			const newPreviews = [...imagePreviews];

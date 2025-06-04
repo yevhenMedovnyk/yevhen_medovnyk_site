@@ -8,8 +8,8 @@
 	position: relative;
 	overflow: hidden;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	min-height: 23rem;
-	//max-height: 55rem;
+	min-height: 20rem;
+	max-height: 80rem;
 	height: 100%;
 	padding: 0.9rem;
 	animation: fadeIn 100ms forwards;
@@ -39,10 +39,11 @@
 
 .image {
 	width: 100%;
-	height: 100%;
-	object-fit: contain;
+  height: auto;
 	opacity: 1;
 	animation: fadeIn 500ms forwards;
+  object-fit: contain;
+  max-height: 100%;
 }
 
 .image.editMode{
