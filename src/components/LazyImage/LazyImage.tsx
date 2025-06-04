@@ -21,41 +21,25 @@ interface LazyImageProps {
 const LazyImage: React.FC<LazyImageProps> = React.memo(
 	({ img, imageId = '', alt, onClickDelete, width, height, editMode = false, description }) => {
 		const { ref, inView } = useInView({
-			threshold: 0.1,
+			threshold: 0,
 			triggerOnce: true,
 		});
 
 		const [loadImage, setLoadImage] = useState(false);
 		const [imageDesc, setImageDesc] = useState(description || '');
-
-		// Збережи URL зображення у локальному стейті, щоб він не змінювався без потреби
-		const [stableImgSrc, setStableImgSrc] = useState<string | undefined>(img);
+		const [isLoaded, setIsLoaded] = useState(false);
 
 		const shouldFetch = !img && loadImage && !!imageId;
 
-		// Отримуємо зображення з бекенду (Cloudinary URL)
-		const {
-			data: image,
-			isLoading,
-			error,
-		} = useGetImageQuery(imageId, {
+		const { data: image, isLoading } = useGetImageQuery(imageId, {
 			skip: !shouldFetch,
 		});
 
 		useEffect(() => {
-			if (inView) setLoadImage(true);
-		}, [inView]);
-
-		// Коли отримуємо нове зображення, встановлюємо URL в локальний стейт
-		useEffect(() => {
-			if (image?.img && image.img !== stableImgSrc) {
-				setStableImgSrc(image.img);
+			if (inView) {
+				setLoadImage(true);
 			}
-		}, [image?.img, stableImgSrc]);
-
-		if (error) {
-			console.error(error);
-		}
+		}, [inView]);
 
 		const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 			setImageDesc(e.target.value);
@@ -63,14 +47,18 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
 
 		const [saveDesc, { isLoading: isDescLoading, isSuccess }] = useAddImageDescriptionMutation();
 
+		const stableImgSrc = image?.img || img;
+
 		return (
 			<div ref={ref} className={s.imageContainer}>
 				{onClickDelete && <TiDelete className={s.deleteIcon} onClick={onClickDelete} />}
+
 				{!isLoading && stableImgSrc ? (
 					<img
 						src={stableImgSrc}
 						alt={image?.name || alt}
-						className={clsx(s.image, editMode && s.editMode)}
+						onLoad={() => setIsLoaded(true)}
+						className={clsx(s.image, editMode && s.editMode, isLoaded && s.fadeInImage)}
 						width={width}
 						height={height}
 					/>
@@ -82,6 +70,7 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
 						<ClipLoader color="#b0bab8" size={50} />
 					</div>
 				)}
+
 				{editMode && imageId ? (
 					<>
 						<textarea
