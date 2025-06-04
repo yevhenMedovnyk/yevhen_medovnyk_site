@@ -50,21 +50,21 @@ const CreateOrEditAlbum: React.FC = () => {
 		}
 	}, [albumData]);
 
-	const getImageDimensions = (file: File): Promise<{ width: number; height: number }> => {
-		return new Promise((resolve) => {
-			const img = new Image();
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload = () => {
-				if (typeof reader.result === 'string') {
-					img.src = reader.result;
-					img.onload = () => {
-						resolve({ width: img.width, height: img.height });
-					};
-				}
-			};
-		});
-	};
+	//const getImageDimensions = (file: File): Promise<{ width: number; height: number }> => {
+	//	return new Promise((resolve) => {
+	//		const img = new Image();
+	//		const reader = new FileReader();
+	//		reader.readAsDataURL(file);
+	//		reader.onload = () => {
+	//			if (typeof reader.result === 'string') {
+	//				img.src = reader.result;
+	//				img.onload = () => {
+	//					resolve({ width: img.width, height: img.height });
+	//				};
+	//			}
+	//		};
+	//	});
+	//};
 
 	const onSubmit = async (
 		values: typeof initialValues,
@@ -115,25 +115,17 @@ const CreateOrEditAlbum: React.FC = () => {
 			}
 
 			if (albumFiles.length > 0 && finalAlbumId) {
-				const albumImages = await Promise.all(
-					albumFiles.map(async (file) => {
-						const { width, height } = await getImageDimensions(file);
+				const formData = new FormData();
 
-						return {
-							img: await convertToBase64(file),
-							name: file.name,
-							album_id: finalAlbumId,
-							width,
-							height,
-						};
-					})
-				);
-				console.log('albumImages', albumImages);
+				albumFiles.forEach((file) => {
+					formData.append('images', file); // 'images' - це те, як названо поле у бекенді
+				});
 
-				if (albumImages.length > 0) {
-					await uploadImages(albumImages).unwrap();
-					console.log('✅ Зображення завантажені');
-				}
+				formData.append('album_id', finalAlbumId);
+				formData.append('album_name', values.category);
+
+				await uploadImages(formData).unwrap();
+				console.log('✅ Зображення завантажені');
 			}
 
 			resetForm();
@@ -195,9 +187,9 @@ const CreateOrEditAlbum: React.FC = () => {
 		setFieldValue('category', event.target.value);
 	};
 
-	const deleteImage = (index: number, _id?: string) => {
+	const deleteImage = async (index: number, _id?: string) => {
 		if (_id) {
-			deleteImageById(_id);
+			await deleteImageById(_id).unwrap();
 		} else {
 			const newFiles = [...albumFiles];
 			const newPreviews = [...imagePreviews];

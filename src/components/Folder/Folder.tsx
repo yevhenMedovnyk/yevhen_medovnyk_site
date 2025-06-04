@@ -42,7 +42,7 @@ const Folder: React.FC<IFolderProps> = ({ cover_img, name, category, _id, delete
 				<Link to={`/category/${category}?id=${_id}`} className={s.imgLink}>
 					<img src={cover_img} alt="album_cover" />
 				</Link>
-				<Link to={category} className={s.title}>
+				<Link to={`/category/${category}?id=${_id}`} className={s.title}>
 					<span className={s.albumName}>{name}</span>
 				</Link>
 			</div>
