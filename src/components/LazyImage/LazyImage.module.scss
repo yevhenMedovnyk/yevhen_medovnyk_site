@@ -12,8 +12,8 @@
 	max-height: 80rem;
 	height: 100%;
 	padding: 0.9rem;
-	animation: fadeIn 100ms forwards;
-	margin-bottom: 0.6rem;
+	animation: fadeIn 500ms forwards;
+	margin-bottom: 0.3rem;
 
 	@include tablet{
 		padding: 0.3rem;
@@ -39,11 +39,15 @@
 
 .image {
 	width: 100%;
-  height: auto;
+	height: auto;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+	object-fit: contain;
+	max-height: 100%;
+}
+
+.fadeInImage {
 	opacity: 1;
-	animation: fadeIn 500ms forwards;
-  object-fit: contain;
-  max-height: 100%;
 }
 
 .image.editMode{
@@ -57,7 +61,18 @@
 	border: 1px solid $color-border-secondary;
 	border-radius: 4px;
 	margin-bottom: 0.5rem;
-	margin-top: auto;
+	resize: none;
+
+}
+
+.descriptionInput:not(:last-of-type){
+	margin-top:auto;
+}
+
+.descriptionInput::placeholder{
+	color: $color-tertiary;
+	font-size: 0.6em;
+	padding: 0.4em;
 }
 
 .description{

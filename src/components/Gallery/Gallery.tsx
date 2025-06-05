@@ -25,7 +25,7 @@ const Gallery: React.FC<GalleryProps> = ({
 			{imageIdList.length > 0
 				? imageIdList.map(({ _id: imageId, width, height }, index) => (
 						<LazyImage
-							key={imageId || index}
+							key={imageId ?? index}
 							imageId={imageId}
 							width={width}
 							height={height}
