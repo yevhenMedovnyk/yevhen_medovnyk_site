@@ -15,7 +15,10 @@ interface LazyImageProps {
 	height?: number;
 	onClickDelete?: () => void;
 	editMode?: boolean;
-	description?: string;
+	description?: {
+		ua: string;
+		en: string;
+	};
 }
 
 const LazyImage: React.FC<LazyImageProps> = React.memo(
@@ -26,7 +29,10 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
 		});
 
 		const [loadImage, setLoadImage] = useState(false);
-		const [imageDesc, setImageDesc] = useState(description || '');
+		const [imageDesc, setImageDesc] = useState({
+			ua: description?.ua || '',
+			en: description?.en || '',
+		});
 		const [isLoaded, setIsLoaded] = useState(false);
 
 		const shouldFetch = !img && loadImage && !!imageId;
@@ -42,7 +48,10 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
 		}, [inView]);
 
 		const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-			setImageDesc(e.target.value);
+			setImageDesc({
+				...imageDesc,
+				[e.target.name]: e.target.value,
+			});
 		};
 
 		const [saveDesc, { isLoading: isDescLoading, isSuccess }] = useAddImageDescriptionMutation();
@@ -75,8 +84,17 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
 					<>
 						<textarea
 							className={s.descriptionInput}
-							value={imageDesc}
+							value={imageDesc.ua}
 							onChange={handleDescriptionChange}
+							name="ua"
+							placeholder="Опис українською"
+						/>
+						<textarea
+							className={s.descriptionInput}
+							value={imageDesc.en}
+							onChange={handleDescriptionChange}
+							name="en"
+							placeholder="Description in English"
 						/>
 						<Button
 							name={isSuccess ? 'Збережено' : 'Зберегти'}
@@ -86,7 +104,7 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
 						/>
 					</>
 				) : (
-					<span className={s.description}>{image?.description}</span>
+					<span className={s.description}>{image?.description?.ua}</span>
 				)}
 			</div>
 		);

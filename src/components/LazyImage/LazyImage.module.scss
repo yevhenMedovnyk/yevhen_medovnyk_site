@@ -13,7 +13,7 @@
 	height: 100%;
 	padding: 0.9rem;
 	animation: fadeIn 500ms forwards;
-	margin-bottom: 0.6rem;
+	margin-bottom: 0.3rem;
 
 	@include tablet{
 		padding: 0.3rem;
@@ -61,7 +61,18 @@
 	border: 1px solid $color-border-secondary;
 	border-radius: 4px;
 	margin-bottom: 0.5rem;
-	margin-top: auto;
+	resize: none;
+
+}
+
+.descriptionInput:not(:last-of-type){
+	margin-top:auto;
+}
+
+.descriptionInput::placeholder{
+	color: $color-tertiary;
+	font-size: 0.6em;
+	padding: 0.4em;
 }
 
 .description{

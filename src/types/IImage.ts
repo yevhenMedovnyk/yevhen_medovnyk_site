@@ -5,5 +5,8 @@ export interface IImage {
 	width: number;
 	height: number;
 	album_id?: string;
-	description?: string;
+	description?: {
+		ua: string;
+		en: string;
+	};
 }

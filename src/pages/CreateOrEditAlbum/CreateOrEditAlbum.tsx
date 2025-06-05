@@ -30,12 +30,21 @@ const CreateOrEditAlbum: React.FC = () => {
 
 	const [coverPreview, setCoverPreview] = useState<string | null>(null);
 	const [imagePreviews, setImagePreviews] = useState<IImage[]>([]);
-	const [albumName, setAlbumName] = useState('');
+	const [albumName, setAlbumName] = useState({
+		ua: '',
+		en: '',
+	});
 	const [albumFiles, setAlbumFiles] = useState<File[]>([]);
+
+	//Тимчасово
+	const lang = 'ua';
 
 	const initialValues = useMemo(
 		() => ({
-			name: albumData?.name ?? '',
+			name: {
+				ua: albumData?.name?.ua ?? '',
+				en: albumData?.name?.en ?? '',
+			},
 			cover_img: null as File | null,
 			category: albumData?.category ?? 'gallery',
 			album_images: [] as File[],
@@ -45,7 +54,10 @@ const CreateOrEditAlbum: React.FC = () => {
 
 	useEffect(() => {
 		if (albumData) {
-			setAlbumName(albumData.name);
+			setAlbumName({
+				ua: albumData.name.ua,
+				en: albumData.name.en,
+			});
 			setCoverPreview(albumData.cover_img);
 		}
 	}, [albumData]);
@@ -122,7 +134,6 @@ const CreateOrEditAlbum: React.FC = () => {
 				});
 
 				formData.append('album_id', finalAlbumId);
-				formData.append('album_name', values.category);
 
 				await uploadImages(formData).unwrap();
 				console.log('✅ Зображення завантажені');
@@ -143,8 +154,12 @@ const CreateOrEditAlbum: React.FC = () => {
 		event: React.ChangeEvent<HTMLInputElement>,
 		setFieldValue: FormikHelpers<typeof initialValues>['setFieldValue']
 	) => {
-		setFieldValue('name', event.target.value);
-		setAlbumName(event.target.value);
+		const { name, value } = event.target; // name буде "name.ua" або "name.en"
+		setFieldValue(name, value); // ✅ встановлюємо напряму вкладене поле
+		setAlbumName((prev) => ({
+			...prev,
+			[name.split('.')[1]]: value, // ua або en
+		}));
 	};
 
 	const handleCoverChange = (
@@ -214,10 +229,20 @@ const CreateOrEditAlbum: React.FC = () => {
 										className={s.input}
 										type="text"
 										placeholder="Назва альбому"
-										{...formik.getFieldProps('name')}
+										{...formik.getFieldProps('name.ua')}
 										onChange={(event) => handleNameChange(event, formik.setFieldValue)}
 									/>
-									<ErrorMessage name="name" component="span" className={s.error} />
+									<ErrorMessage name="name.ua" component="span" className={s.error} />
+								</div>
+								<div className={s.inputContainer}>
+									<input
+										className={s.input}
+										type="text"
+										placeholder="Album name"
+										{...formik.getFieldProps('name.en')}
+										onChange={(event) => handleNameChange(event, formik.setFieldValue)}
+									/>
+									<ErrorMessage name="name.en" component="span" className={s.error} />
 								</div>
 
 								<div className={s.inputContainer}>
@@ -264,7 +289,7 @@ const CreateOrEditAlbum: React.FC = () => {
 										/>
 									) : null}
 								</div>
-								<span className={s.albumName}>{albumName}</span>
+								<span className={s.albumName}>{lang === 'ua' ? albumName.ua : albumName.en}</span>
 							</div>
 						</div>
 
