@@ -10,6 +10,7 @@ interface INavLinks {
 
 interface INavLinksProps {
 	class_name?: string;
+	onClick?: () => void;
 }
 
 const navLinksList: INavLinks[] = [
@@ -35,7 +36,7 @@ const navLinksList: INavLinks[] = [
 	},
 ];
 
-const NavLinks: React.FC<INavLinksProps> = ({ class_name }) => {
+const NavLinks: React.FC<INavLinksProps> = ({ class_name, onClick }) => {
 	const { pathname } = useLocation();
 
 	const isActive = (link: string) => (pathname === link ? s.active : '');
@@ -45,7 +46,9 @@ const NavLinks: React.FC<INavLinksProps> = ({ class_name }) => {
 			<ul className={clsx(s.container, class_name && s[class_name])}>
 				{navLinksList.map(({ title, to }) => (
 					<li className={clsx(isActive(to), s.link, class_name && s[class_name])} key={to}>
-						<Link to={to}>{title}</Link>
+						<Link onClick={onClick} to={to}>
+							{title}
+						</Link>
 					</li>
 				))}
 			</ul>

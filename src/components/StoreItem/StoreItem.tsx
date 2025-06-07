@@ -32,8 +32,6 @@ const StoreItem: React.FC<IStoreItemProps> = ({ productId, full_page = false, on
 		skip: !loadImage || !productId,
 	});
 
-	console.log(product);
-
 	useEffect(() => {
 		if (inView) setLoadImage(true);
 	}, [inView]);
