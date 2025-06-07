@@ -8,6 +8,10 @@ interface INavLinks {
 	to: string;
 }
 
+interface INavLinksProps {
+	class_name?: string;
+}
+
 const navLinksList: INavLinks[] = [
 	{
 		title: 'Галерея',
@@ -31,16 +35,16 @@ const navLinksList: INavLinks[] = [
 	},
 ];
 
-const NavLinks: React.FC = () => {
+const NavLinks: React.FC<INavLinksProps> = ({ class_name }) => {
 	const { pathname } = useLocation();
 
 	const isActive = (link: string) => (pathname === link ? s.active : '');
 
 	return (
 		<nav>
-			<ul className={s.container}>
+			<ul className={clsx(s.container, class_name && s[class_name])}>
 				{navLinksList.map(({ title, to }) => (
-					<li className={clsx(isActive(to), s.link)} key={to}>
+					<li className={clsx(isActive(to), s.link, class_name && s[class_name])} key={to}>
 						<Link to={to}>{title}</Link>
 					</li>
 				))}

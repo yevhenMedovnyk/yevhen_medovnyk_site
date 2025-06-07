@@ -1,21 +1,23 @@
 @use '/src/styles/mixins.scss' as *;
+@use '/src/styles/variables.scss' as *;
 
 .container{
 	display: flex;
 	flex: 0 0 auto;
 	align-items: center;
-	width: 12rem;
+	min-width: 12rem;
+	font-family: $font-tertiary;
+	font-size: 1.5rem;
 
 	@include small_tablet{
-		width: 10rem;
+		min-width: 9rem;
 	}
 }
 
-.container img{
-	width: 100%;
-	cursor: pointer;
-	transition: all 0.1s ease-in-out;
-	&:hover{
-		opacity: 0.85;
-	}
+.container.burgerMenu{
+	display: block;
+	color: $color-bg;
+	text-align: center;
+	margin: 4rem 0 2rem;
+	font-size: 2rem;
 }

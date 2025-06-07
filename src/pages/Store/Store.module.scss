@@ -15,7 +15,7 @@
 	place-content: center;
 
 	@include tablet{
-		grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(23rem, 1fr));
 	}
 	
 }

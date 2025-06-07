@@ -7,6 +7,14 @@
 	gap: 0 3rem;
 }
 
+.container.burgerMenu {
+	flex-direction: column;
+	justify-content: start;
+	gap: 1rem 0;
+	background-color: $color-secondary;
+	height: 100vh;
+}
+
 .link {
 	position: relative;
 	font-size: 1rem;
@@ -30,6 +38,10 @@
 		transition: 0.2s;
 		transform: scale(0);
 	}
+}
+
+.link.burgerMenu {
+	color: $color-bg;
 }
 
 .active {

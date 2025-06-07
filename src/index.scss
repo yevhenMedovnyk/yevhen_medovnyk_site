@@ -2,8 +2,13 @@
 @use '/src/styles/variables.scss' as *;
 
 body {
+	position: relative;
 	font-family: $font-primary;
 	font-weight: 400;
 	color: $color-primary;
 	background-color: $color-bg;
+}
+
+html, body {
+	height: 100%;
 }

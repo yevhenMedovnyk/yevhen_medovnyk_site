@@ -1,0 +1,25 @@
+@use "/src/styles/variables" as *;
+@use "/src/styles/mixins" as *;
+
+
+.BurgerMenuContainer {
+position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 100;
+	width: 80%;
+	height: 100vh;
+	background-color: $color-secondary;
+
+	padding: 1.8rem 6rem;
+
+	@include full_desktop{
+		padding: 1.5rem 3rem;
+	}
+	@include small_tablet{
+		padding: 1.3rem 2rem;
+		width: 100%;
+	}
+}
+
+

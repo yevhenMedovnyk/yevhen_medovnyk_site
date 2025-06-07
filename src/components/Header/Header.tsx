@@ -4,29 +4,25 @@ import NavLinks from '../NavLinks/NavLinks';
 import Logo from './Logo/Logo';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 
-import { CiMenuBurger } from 'react-icons/ci';
-import { CgClose } from 'react-icons/cg';
+import BurgerOpenBtn from './BurgerOpenBtn/BurgerOpenBtn';
 
-const Header: React.FC = () => {
-	const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
+interface IHeaderProps {
+	handleBurgerMenuClick: () => void;
+	isBurgerMenuOpen?: boolean;
+}
+
+const Header: React.FC<IHeaderProps> = ({ handleBurgerMenuClick, isBurgerMenuOpen }) => {
 	const { isTablet } = useMediaQuery();
-
-	const handleBurgerMenuClick = () => {
-		setIsBurgerMenuOpen((prevIsOpen) => !prevIsOpen);
-	};
 
 	return (
 		<header className={s.container}>
 			<Logo />
 			{!isTablet && <NavLinks />}
 			{isTablet && (
-				<>
-					{isBurgerMenuOpen ? (
-						<CgClose onClick={handleBurgerMenuClick} className={s.burgerCloseBtn} />
-					) : (
-						<CiMenuBurger onClick={handleBurgerMenuClick} className={s.burgerOpenBtn} />
-					)}
-				</>
+				<BurgerOpenBtn
+					isBurgerMenuOpen={isBurgerMenuOpen}
+					handleBurgerMenuClick={handleBurgerMenuClick}
+				/>
 			)}
 		</header>
 	);
