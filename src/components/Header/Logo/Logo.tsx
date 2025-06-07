@@ -6,11 +6,12 @@ import clsx from 'clsx';
 
 interface ILogoProps {
 	class_name?: string;
+	onClick?: () => void;
 }
 
-const Logo: React.FC<ILogoProps> = ({ class_name }) => {
+const Logo: React.FC<ILogoProps> = ({ class_name, onClick }) => {
 	return (
-		<Link to="/" className={clsx(s.container, class_name && s[class_name])}>
+		<Link onClick={onClick} to="/" className={clsx(s.container, class_name && s[class_name])}>
 			Yevhen Medovnyk
 		</Link>
 	);
