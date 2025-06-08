@@ -16,7 +16,9 @@
 	margin-bottom: 0.3rem;
 
 	@include tablet{
-		padding: 0.3rem;
+		padding: 0.5rem;
+		min-height: 18rem;
+		justify-content: center;
 	}
 }
 
@@ -81,6 +83,7 @@
 	font-size: 0.8rem;
 	color: $color-tertiary;
 	font-weight: 300;
+	padding-left: 0.3rem;
 }
 
 .deleteIcon{
