@@ -10,9 +10,8 @@
 .container.burgerMenu {
 	flex-direction: column;
 	justify-content: start;
-	gap: 1rem 0;
+	gap: .8rem 0;
 	background-color: $color-secondary;
-	height: 100vh;
 }
 
 .link {

@@ -10,7 +10,7 @@ const StoreItemPage = () => {
 
 	const onClickBuy = (product) => {
 		const body = {
-			order_ref: 'NhSI1WhoFTKn3a6544478873454' + Date.now(),
+			order_ref: Date.now(),
 			amount: product.price,
 			count: 1,
 			name: product.name,

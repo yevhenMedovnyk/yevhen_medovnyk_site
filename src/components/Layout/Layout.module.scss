@@ -15,12 +15,12 @@
 	align-items: center;
 	max-width: 80rem;
 	width: 100%;
-	min-height: 100vh;
-	padding: 4rem 2rem 5rem;
+	//min-height: 100vh;
+	padding: 4rem 2rem 7rem;
 	margin: 0 auto;
 	overflow: hidden;
 
 	@include tablet{
-			padding: 3rem 1rem 3rem;
+			padding: 3rem .5rem 3rem;
 	}
 }
