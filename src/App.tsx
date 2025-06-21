@@ -11,6 +11,7 @@ import About from './pages/About/About';
 import Album from './pages/Album/Album';
 import CreateOrEditAlbum from './pages/CreateOrEditAlbum/CreateOrEditAlbum';
 import StoreItemPage from './pages/StoreItemPage/StoreItemPage';
+import OrderStatus from './pages/OrderStatus/OrderStatus';
 
 function App(): React.ReactElement {
 	return (
@@ -25,6 +26,7 @@ function App(): React.ReactElement {
 					<Route path="/contacts" element={<Contacts />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/store" element={<Store />} />
+					<Route path="/order-status" element={<OrderStatus />} />
 					<Route path="/store/:product_id" element={<StoreItemPage />} />
 					<Route path="/admin" element={<AdminLayout />}></Route>
 				</Route>
