@@ -78,8 +78,13 @@
 	}
 
 	@include tablet {
-		padding: 1.5rem;
+		padding: 1rem;
 	}
+
+	@include small_tablet {
+		padding: 0.5rem;
+	}
+
 }
 
 .textWrapper:not(.fullPage) {
