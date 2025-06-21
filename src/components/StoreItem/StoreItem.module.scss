@@ -74,15 +74,15 @@
 	background-color: $color-bg-secondary;
 	
 	@include small_tablet {
-		padding: 1rem 0.7rem;
+		padding: 1.7rem 0.7rem;
 	}
 
 	@include tablet {
-		padding: 1rem;
+		padding: 1.3rem 1rem;
 	}
 
 	@include small_tablet {
-		padding: 0.5rem;
+		padding: 1rem 0.5rem;
 	}
 
 }
