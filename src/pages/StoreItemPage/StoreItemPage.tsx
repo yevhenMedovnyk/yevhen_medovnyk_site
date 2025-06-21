@@ -4,13 +4,16 @@ import StoreItem from '../../components/StoreItem/StoreItem';
 import { useParams } from 'react-router';
 import { useCheckoutMutation } from '../../redux/checkoutApi';
 
+import Cookies from 'js-cookie';
+
 const StoreItemPage = () => {
 	const { product_id } = useParams();
 	const [createOrder] = useCheckoutMutation();
 
 	const onClickBuy = (product) => {
+		const order_ref = Date.now();
 		const body = {
-			order_ref: Date.now(),
+			order_ref: order_ref,
 			amount: product.price,
 			count: 1,
 			name: product.name,
@@ -23,7 +26,7 @@ const StoreItemPage = () => {
 		createOrder(body)
 			.unwrap()
 			.then((res) => {
-				console.log(res);
+				Cookies.set('last_order_ref', order_ref, { expires: 1 });
 				if (res.result.redirect_url) {
 					window.location.assign(res.result.redirect_url);
 				}

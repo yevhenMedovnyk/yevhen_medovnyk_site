@@ -1,0 +1,59 @@
+@use "/src/styles/variables" as *;
+@use "/src/styles/mixins" as *;
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	gap: 0.5rem;
+	width: 60%;
+	border: 1px solid $color-border-secondary;
+	border-radius: 5px;
+	background-color: $color-bg-secondary;
+	animation: fadeIn 900ms forwards;
+	padding: 3.5rem 2rem;
+	box-shadow: 1px 1px 6px 1px rgba(44, 63, 82, 0.42);
+	font-family: $font-primary;
+	font-size: 1.2rem;
+	//font-family: $font-primary;
+}
+
+.successText{
+	font-size: 1.6rem;
+	color: $color-tertiary;
+	font-weight: 500;
+	line-height: 1.5;
+}
+
+.successIcon{
+	font-size: 3rem;
+	color: green;
+	margin-bottom: 1rem;
+}
+
+.productInfo{
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+}
+
+.deliveryInfo{
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+	margin-top: 1rem;
+}
+
+.errText {
+	font-size: 1.3rem;
+	color: $color-tertiary;
+	font-weight: 500;
+	line-height: 1.5;
+}
+.errIcon {
+	margin-top: .7rem;
+	font-size: 3rem;
+	color: $color-accent;
+}
