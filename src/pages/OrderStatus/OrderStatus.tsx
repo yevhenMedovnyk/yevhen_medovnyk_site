@@ -6,6 +6,7 @@ import s from './OrderStatus.module.scss';
 
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 import { AiOutlineDownCircle } from 'react-icons/ai';
+import { Link } from 'react-router';
 
 const OrderStatus = () => {
 	const [orderRef, setOrderRef] = React.useState('');
@@ -32,35 +33,34 @@ const OrderStatus = () => {
 			{isOrderSuccess ? (
 				<>
 					{' '}
-					<span className={s.successText}>Замовлення успішно прийнято!</span>
 					<AiOutlineDownCircle className={s.successIcon} />
+					<span className={s.successText}>
+						<b>Замовлення успішно прийнято!</b>
+					</span>
 					<div className={s.productInfo}>
-						<span>Номер замовлення: {data?.result.basket_id}</span>
-						<span>Назва товару: {data?.result.products[0].name}</span>
-						<span>Сума: {data?.result.amount}</span>
-					</div>
-					<div className={s.deliveryInfo}>
-						<span>Дані для доставки:</span>
 						<span>
-							Отримувач: {data?.result.deliveryRecipientInfo.first_name}{' '}
-							{data?.result.deliveryRecipientInfo.last_name}
+							<b>Номер замовлення:</b> {data?.result.basket_id}
 						</span>
-						<span>Номер телефону: {data?.result.deliveryRecipientInfo.phoneNumber}</span>
 						<span>
-							Адреса доставки: {data?.result.deliveryAddressInfo.cityName},{' '}
-							{data?.result.delivery_method_desc}
+							<b>Назва товару:</b> {data?.result.products[0].name}
+						</span>
+						<span>
+							<b>Сума:</b> {data?.result.amount}
 						</span>
 					</div>
 				</>
 			) : (
 				<>
 					<span className={s.errText}>
-						Ууупс, щось пішло не так: {data?.result.generalStatus} <br />
-						Спробуйте ще раз
+						<b>Ууупс, щось пішло не так:</b> {data?.result.generalStatus} <br />
+						<b>Спробуйте ще раз!</b>
 					</span>
 					<AiOutlineExclamationCircle className={s.errIcon} />
 				</>
 			)}
+			<Link className={s.backLink} to="/store">
+				Повернутися до магазину
+			</Link>
 		</div>
 	);
 };
