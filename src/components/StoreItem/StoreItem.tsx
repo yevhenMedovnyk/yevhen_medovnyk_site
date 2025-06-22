@@ -4,8 +4,8 @@ import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../redux/storeApi';
 import { ClipLoader } from 'react-spinners';
-//import Swiper from '../Swiper/Swiper';
-const Swiper = React.lazy(() => import('../Swiper/Swiper'));
+import Swiper from '../Swiper/Swiper';
+//const Swiper = React.lazy(() => import('../Swiper/Swiper'));
 
 import Button from '../UI/Button/Button';
 import s from './StoreItem.module.scss';

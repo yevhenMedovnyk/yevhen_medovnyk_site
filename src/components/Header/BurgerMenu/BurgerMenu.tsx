@@ -3,6 +3,9 @@ import s from './BurgerMenu.module.scss';
 import NavLinks from '../../NavLinks/NavLinks';
 import Logo from '../Logo/Logo';
 import clsx from 'clsx';
+import { Link } from 'react-router';
+
+import logoMiniWhite from '../../../assets/logo-mini-white.webp';
 
 interface IBurgerMenuProps {
 	isBurgerMenuOpen: boolean;
@@ -25,6 +28,9 @@ const BurgerMenu: React.FC<IBurgerMenuProps> = ({
 		<nav className={clsx(s.BurgerMenuContainer, isBurgerMenuOpen && s.open)}>
 			<Logo class_name="burgerMenu" onClick={handleBurgerLinkClick} />
 			<NavLinks class_name="burgerMenu" onClick={handleBurgerLinkClick} />
+			<Link onClick={handleBurgerLinkClick} to="/" className={s.logoMini}>
+				<img src={logoMiniWhite} alt="logo" />
+			</Link>
 		</nav>
 	);
 };
