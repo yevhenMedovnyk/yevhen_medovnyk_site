@@ -8,7 +8,7 @@ import MainTitle from '../MainTitle/MainTitle';
 import { useScrollToTopOnRouteChange } from '../../hooks/useScrollToTopOnRouteChange';
 import { Toaster } from 'sonner';
 
-const Layout = () => {
+const Layout: React.FC = () => {
 	useScrollToTopOnRouteChange();
 
 	return (
