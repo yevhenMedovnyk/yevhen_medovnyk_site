@@ -4,10 +4,15 @@ import { Swiper as SwiperClass } from 'swiper/types';
 import { FreeMode, Navigation, Pagination, Thumbs, Keyboard } from 'swiper/modules';
 import clsx from 'clsx';
 
+// @ts-expect-error: тип не відповідає очікуваному, але це ок
 import 'swiper/css';
+// @ts-expect-error: тип не відповідає очікуваному, але це ок
 import 'swiper/css/navigation';
+// @ts-expect-error: тип не відповідає очікуваному, але це ок
 import 'swiper/css/pagination';
+// @ts-expect-error: тип не відповідає очікуваному, але це ок
 import 'swiper/css/free-mode';
+// @ts-expect-error: тип не відповідає очікуваному, але це ок
 import 'swiper/css/thumbs';
 import s from './Swiper.module.scss';
 

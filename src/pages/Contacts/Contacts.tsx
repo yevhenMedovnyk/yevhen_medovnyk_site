@@ -5,6 +5,8 @@ import SocialNetLinksList from '../../components/SocialNetLinks/SocialNetLinks.t
 import s from './Contacts.module.scss';
 import { useSendMailMutation } from '../../redux/mailApi.ts';
 import Button from '../../components/UI/Button/Button.tsx';
+import { showErrorToast } from '../../components/UI/showErrorToast.ts';
+import { showSuccessToast } from '../../components/UI/showSuccessToast.ts';
 
 const Contacts: React.FC = () => {
 	const [sendMail] = useSendMailMutation();
@@ -13,10 +15,20 @@ const Contacts: React.FC = () => {
 		email: '',
 		message: '',
 	};
-	const onSubmit = (values: typeof initialValues, { resetForm }: { resetForm: () => void }) => {
-		console.log('onSubmit', values);
-		sendMail(values);
-		resetForm();
+	const onSubmit = async (
+		values: typeof initialValues,
+		{ resetForm }: { resetForm: () => void }
+	) => {
+		try {
+			const response = await sendMail(values).unwrap();
+			showSuccessToast('Повідомлення надіслано');
+			console.log('response', response);
+
+			resetForm();
+		} catch (error) {
+			console.error('Помилка надсилання:', error);
+			showErrorToast('Помилка надсилання повідомлення');
+		}
 	};
 
 	return (

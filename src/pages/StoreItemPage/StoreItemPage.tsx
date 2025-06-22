@@ -5,12 +5,13 @@ import { useParams } from 'react-router';
 import { useCheckoutMutation } from '../../redux/checkoutApi';
 
 import Cookies from 'js-cookie';
+import { IProduct } from '../../types/IProduct';
 
-const StoreItemPage = () => {
+const StoreItemPage: React.FC = () => {
 	const { product_id } = useParams();
 	const [createOrder] = useCheckoutMutation();
 
-	const onClickBuy = (product) => {
+	const onClickBuy = (product: IProduct) => {
 		const order_ref = Date.now().toString();
 		const body = {
 			order_ref: order_ref,
