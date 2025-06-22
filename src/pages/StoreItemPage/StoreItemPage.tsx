@@ -11,7 +11,7 @@ const StoreItemPage = () => {
 	const [createOrder] = useCheckoutMutation();
 
 	const onClickBuy = (product) => {
-		const order_ref = Date.now();
+		const order_ref = Date.now().toString();
 		const body = {
 			order_ref: order_ref,
 			amount: product.price,
