@@ -1,6 +1,7 @@
 export interface IOrder {
 	_id: string;
 	orderId: string;
+	basket_id: string;
 	amount: number;
 	comment: string;
 	dateCreate: string;
@@ -16,7 +17,7 @@ export interface IOrder {
 		cnt: number;
 		code_product: string;
 	}[];
-	__v: number;
+	tracking_number?: number;
 }
 
 export interface IPersonInfo {
@@ -24,5 +25,5 @@ export interface IPersonInfo {
 	first_name: string;
 	last_name: string;
 	phoneNumber: string;
-	email?: string; // email є лише у mainClientInfo, тому опціональний
+	email?: string;
 }

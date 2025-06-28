@@ -31,7 +31,7 @@ function App(): React.ReactElement {
 					<Route path="/store/:product_id" element={<StoreItemPage />} />
 					<Route path="/admin" element={<AdminLayout />}>
 						<Route path="client-orders" element={<ClientOrders />} />
-						<Route path="/admin/products" element={<About />} />
+						<Route path="/admin/products" element={<Store />} />
 					</Route>
 				</Route>
 			</Routes>
