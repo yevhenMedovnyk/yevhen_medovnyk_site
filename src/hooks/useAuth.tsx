@@ -11,13 +11,18 @@ import { useAppDispatch } from './redux';
 import { setUser } from '../redux/slices/authSlice';
 
 const auth = getAuth();
-const AuthContext = createContext({ signInWithGoogle: async () => {}, logout: async () => {} });
+const AuthContext = createContext({
+	signInWithGoogle: async () => {},
+	logout: async () => {},
+	loading: true,
+});
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const dispatch = useAppDispatch();
 	const provider = new GoogleAuthProvider();
 	const [createUser] = useCreateUserMutation();
 	const [getUserByUID] = useLazyGetUserByUIDQuery();
+	const [loading, setLoading] = React.useState(true);
 
 	const signInWithGoogle = async () => {
 		try {
@@ -69,14 +74,19 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 					.unwrap()
 					.then((user) => {
 						dispatch(setUser(user));
-					});
+					})
+					.finally(() => setLoading(false));
+			} else {
+				setLoading(false);
 			}
 		});
 		return () => unsubscribe();
 	}, []);
 
 	return (
-		<AuthContext.Provider value={{ signInWithGoogle, logout }}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={{ signInWithGoogle, logout, loading }}>
+			{children}
+		</AuthContext.Provider>
 	);
 };
 
