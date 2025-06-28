@@ -6,6 +6,10 @@ import globals from 'globals';
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
+	// 🔽 Виключення dist/
+	{
+		ignores: ['dist/**'],
+	},
 	// TypeScript ESLint config (готова конфігурація без ітерацій)
 	...tseslint.configs.recommended,
 

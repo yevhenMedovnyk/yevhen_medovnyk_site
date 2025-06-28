@@ -12,6 +12,8 @@ import Album from './pages/Album/Album';
 import CreateOrEditAlbum from './pages/CreateOrEditAlbum/CreateOrEditAlbum';
 import StoreItemPage from './pages/StoreItemPage/StoreItemPage';
 import OrderStatus from './pages/OrderStatus/OrderStatus';
+import ClientOrders from './pages/ClientOrders/ClientOrders';
+import RequireAdmin from './components/RequireAdmin';
 
 function App(): React.ReactElement {
 	return (
@@ -28,7 +30,17 @@ function App(): React.ReactElement {
 					<Route path="/store" element={<Store />} />
 					<Route path="/order-status" element={<OrderStatus />} />
 					<Route path="/store/:product_id" element={<StoreItemPage />} />
-					<Route path="/admin" element={<AdminLayout />}></Route>
+					<Route
+						path="/admin"
+						element={
+							<RequireAdmin>
+								<AdminLayout />
+							</RequireAdmin>
+						}
+					>
+						<Route path="client-orders" element={<ClientOrders />} />
+						<Route path="/admin/products" element={<Store />} />
+					</Route>
 				</Route>
 			</Routes>
 		</>

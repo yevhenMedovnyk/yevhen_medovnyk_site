@@ -41,6 +41,13 @@
 	padding: .9em 1em;
 }
 
+.button.order{
+	padding: 0.4rem 0.7rem;
+	border-radius: 5px;
+	font-size: 0.7rem;
+	height: 1.8rem;
+}
+
 .button:disabled{
 	opacity: 0.5;
 	cursor: not-allowed;

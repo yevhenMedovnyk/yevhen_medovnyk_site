@@ -21,6 +21,8 @@ const AlbumGallery: React.FC<IAlbumGalleryProps> = ({ category }) => {
 		deleteAlbum(id);
 	};
 
+	console.log(isAdmin);
+
 	return (
 		<>
 			{isAdmin && (
