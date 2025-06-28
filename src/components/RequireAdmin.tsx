@@ -8,14 +8,23 @@ interface Props {
 }
 
 const RequireAdmin: React.FC<Props> = ({ children }) => {
-	const { isAdmin } = useAppSelector((state) => state.auth.user);
-	const { loading } = UserAuth();
+	const {
+		user: { isAdmin, uid },
+	} = useAppSelector((state) => state.auth);
+	const { loading, signInWithGoogle } = UserAuth();
 
 	if (loading) return <div>Завантаження...</div>;
 	console.log('isAdmin', isAdmin);
 
+	if (!uid) {
+		return (
+			<div>
+				<button onClick={signInWithGoogle}>Увійти через Google</button>
+			</div>
+		);
+	}
+
 	if (!isAdmin) {
-		// Якщо не адмін — перенаправити або показати щось інше
 		return <Navigate to="/" replace />;
 	}
 
