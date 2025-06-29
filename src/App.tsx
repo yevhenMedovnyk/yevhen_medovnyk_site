@@ -38,8 +38,8 @@ function App(): React.ReactElement {
 							</RequireAdmin>
 						}
 					>
-						<Route path="client-orders" element={<ClientOrders />} />
-						<Route path="/admin/products" element={<Store />} />
+						<Route index element={<ClientOrders />} />
+						<Route path="products" element={<Store />} />
 					</Route>
 				</Route>
 			</Routes>

@@ -11,7 +11,7 @@ interface INavLinks {
 const navLinksList: INavLinks[] = [
 	{
 		title: 'Client orders',
-		to: 'client-orders',
+		to: '/admin',
 	},
 	{
 		title: 'Products',
