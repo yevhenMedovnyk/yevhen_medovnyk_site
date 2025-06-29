@@ -24,7 +24,7 @@ export const imagesApi = createApi({
 		}),
 		uploadImages: builder.mutation({
 			query: (images = []) => ({
-				url: '/upload-image',
+				url: '/images/upload-image',
 				method: 'POST',
 				body: images,
 			}),
