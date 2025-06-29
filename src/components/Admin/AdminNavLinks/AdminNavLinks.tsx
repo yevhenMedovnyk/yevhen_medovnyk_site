@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './AdminNavLinks.module.scss';
 import { NavLink } from 'react-router-dom';
+import { UserAuth } from '../../../hooks/useAuth';
 
 interface INavLinks {
 	title: string;
@@ -10,7 +11,7 @@ interface INavLinks {
 const navLinksList: INavLinks[] = [
 	{
 		title: 'Client orders',
-		to: 'client-orders',
+		to: '/admin',
 	},
 	{
 		title: 'Products',
@@ -19,6 +20,8 @@ const navLinksList: INavLinks[] = [
 ];
 
 const AdminNavLinks: React.FC = () => {
+	const { logout } = UserAuth();
+
 	return (
 		<div className={s.container}>
 			{navLinksList.map(({ title, to }) => (
@@ -31,6 +34,9 @@ const AdminNavLinks: React.FC = () => {
 					{title}
 				</NavLink>
 			))}
+			<button onClick={() => logout()} className={s.link}>
+				Logout
+			</button>
 		</div>
 	);
 };

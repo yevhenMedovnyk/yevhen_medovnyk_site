@@ -5,12 +5,15 @@ import {
 	GoogleAuthProvider,
 	onAuthStateChanged,
 	signOut,
+	User,
 } from 'firebase/auth';
 import { useCreateUserMutation, useLazyGetUserByUIDQuery } from '../redux/usersApi';
 import { useAppDispatch } from './redux';
 import { setUser } from '../redux/slices/authSlice';
+import { IUser } from '../types/IUser';
 
 const auth = getAuth();
+
 const AuthContext = createContext({
 	signInWithGoogle: async () => {},
 	logout: async () => {},
@@ -24,26 +27,53 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 	const [getUserByUID] = useLazyGetUserByUIDQuery();
 	const [loading, setLoading] = React.useState(true);
 
+	// універсальна функція: створює юзера тільки якщо треба
+	const fetchAndSetUser = async (user: User, shouldCreate = false) => {
+		try {
+			const idTokenResult = await user.getIdTokenResult(true);
+			const claims = idTokenResult.claims;
+
+			const { uid, displayName, email } = user;
+
+			let user_db;
+
+			try {
+				user_db = await getUserByUID(uid).unwrap();
+			} catch {
+				user_db = null;
+			}
+
+			if (!user_db && shouldCreate) {
+				const newUser: IUser = {
+					displayName: displayName || '',
+					email: email || '',
+					uid,
+					isAdmin: Boolean(claims.isAdmin),
+				};
+
+				await createUser(newUser);
+				user_db = newUser;
+			}
+
+			if (user_db) {
+				dispatch(
+					setUser({
+						...user_db,
+						isAdmin: Boolean(claims.isAdmin),
+					})
+				);
+			}
+		} catch (error) {
+			console.error('fetchAndSetUser error:', error);
+		}
+	};
+
 	const signInWithGoogle = async () => {
 		try {
 			const userCredential = await signInWithPopup(auth, provider);
 			const user = userCredential?.user;
-
 			if (user) {
-				const { uid, displayName, email } = user;
-				const user_db = await getUserByUID(uid).unwrap();
-				dispatch(setUser(user_db));
-
-				if (user_db?.uid !== uid) {
-					await createUser({
-						displayName: displayName || '',
-						email: email || '',
-						uid,
-						isAdmin: false,
-					});
-				}
-			} else {
-				console.warn('No user information available');
+				await fetchAndSetUser(user, true); // ✅ створюємо користувача лише тут
 			}
 		} catch (error) {
 			console.error('Error during Google login:', error);
@@ -67,18 +97,11 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 	};
 
 	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+		const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
 			if (currentUser?.uid) {
-				getUserByUID(currentUser.uid)
-					.refetch()
-					.unwrap()
-					.then((user) => {
-						dispatch(setUser(user));
-					})
-					.finally(() => setLoading(false));
-			} else {
-				setLoading(false);
+				await fetchAndSetUser(currentUser, false); // ❌ без створення
 			}
+			setLoading(false);
 		});
 		return () => unsubscribe();
 	}, []);

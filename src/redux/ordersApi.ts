@@ -1,16 +1,14 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { baseUrl } from '../constants';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { IOrder } from '../types/IOrder';
+import { baseQueryWithAuth } from './baseQueryWithAuth';
 
 export const ordersApi = createApi({
 	reducerPath: 'ordersApi',
-	baseQuery: fetchBaseQuery({
-		baseUrl: baseUrl + 'orders/',
-	}),
+	baseQuery: baseQueryWithAuth,
 	tagTypes: ['Orders'],
 	endpoints: (builder) => ({
 		getOrders: builder.query<IOrder[], void>({
-			query: () => 'get-orders',
+			query: () => '/orders/get-orders',
 			providesTags: (result) => (result ? [{ type: 'Orders', id: 'LIST' }] : []),
 		}),
 		getOrderById: builder.query<IOrder, string>({
@@ -19,7 +17,7 @@ export const ordersApi = createApi({
 		}),
 		updateOrder: builder.mutation({
 			query: ({ order_id, ...updatedData }) => ({
-				url: `update-order`,
+				url: `/orders/update-order`,
 				method: 'PUT',
 				body: { order_id, ...updatedData },
 			}),

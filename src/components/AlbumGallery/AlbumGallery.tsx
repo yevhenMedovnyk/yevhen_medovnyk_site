@@ -5,6 +5,8 @@ import Folder from '../Folder/Folder';
 import { useDeleteAlbumMutation, useGetAlbumsQuery } from '../../redux/albumsApi';
 import { Link } from 'react-router';
 import { useAppSelector } from '../../hooks/redux';
+import { showSuccessToast } from '../UI/showSuccessToast';
+import { showErrorToast } from '../UI/showErrorToast';
 
 interface IAlbumGalleryProps {
 	category: string;
@@ -17,11 +19,15 @@ const AlbumGallery: React.FC<IAlbumGalleryProps> = ({ category }) => {
 	const [deleteAlbum] = useDeleteAlbumMutation();
 	const { isAdmin } = useAppSelector((state) => state.auth.user);
 
-	const handleDeleteFolder = (id: number) => {
-		deleteAlbum(id);
+	const handleDeleteFolder = async (id: number) => {
+		try {
+			await deleteAlbum(id).unwrap();
+			showSuccessToast('Альбом видалено');
+		} catch (error) {
+			console.error('Помилка при видаленні альбому:', error);
+			showErrorToast('Помилка при видаленні альбому');
+		}
 	};
-
-	console.log(isAdmin);
 
 	return (
 		<>

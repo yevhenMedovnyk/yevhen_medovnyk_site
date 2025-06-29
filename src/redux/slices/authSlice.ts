@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from '../../types/IUser';
 
 const initialState: { user: IUser } = {
@@ -14,12 +14,8 @@ const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		setUser(state, action) {
-			if (action.payload) {
-				state.user = action.payload;
-			} else {
-				console.error('Invalid payload: payload is null or undefined');
-			}
+		setUser(state, action: PayloadAction<IUser>) {
+			state.user = action.payload;
 		},
 	},
 });
