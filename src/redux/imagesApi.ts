@@ -1,27 +1,25 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { IImage } from '../types/IImage';
-import { baseUrl } from '../constants';
+import { baseQueryWithAuth } from './baseQueryWithAuth';
 
 export const imagesApi = createApi({
 	reducerPath: 'imagesApi',
-	baseQuery: fetchBaseQuery({
-		baseUrl: baseUrl + 'images/',
-	}),
+	baseQuery: baseQueryWithAuth,
 	tagTypes: ['Images'],
 
 	endpoints: (builder) => ({
 		getImages: builder.query<IImage[], string | undefined>({
-			query: (albumId) => `all-images-in-album?albumId=${albumId}`,
+			query: (albumId) => `/images/all-images-in-album?albumId=${albumId}`,
 			providesTags: (result) => (result ? [{ type: 'Images' as const, id: 'LIST' }] : []),
 		}),
 		getImageIds: builder.query<{ _id: string; width: number; height: number }[], string>({
-			query: (albumId) => `/image-id-in-album?albumId=${albumId}`,
+			query: (albumId) => `/images/image-id-in-album?albumId=${albumId}`,
 			providesTags: (result) => (result ? [{ type: 'Images' as const, id: 'LIST' }] : []),
 		}),
 
 		// ❗ Отримати конкретне зображення
 		getImage: builder.query<IImage, string>({
-			query: (imageId) => `/image-by-id?imageId=${imageId}`,
+			query: (imageId) => `/images/image-by-id?imageId=${imageId}`,
 			providesTags: (result) => (result ? [{ type: 'Images' as const, id: 'LIST' }] : []),
 		}),
 		uploadImages: builder.mutation({
@@ -34,14 +32,14 @@ export const imagesApi = createApi({
 		}),
 		deleteImage: builder.mutation({
 			query: (imageId) => ({
-				url: `/delete-image?imageId=${imageId}`,
+				url: `/images/delete-image?imageId=${imageId}`,
 				method: 'DELETE',
 			}),
 			invalidatesTags: ['Images'],
 		}),
 		addImageDescription: builder.mutation({
 			query: (data) => ({
-				url: '/add-image-description',
+				url: '/images/add-image-description',
 				method: 'POST',
 				body: data,
 			}),

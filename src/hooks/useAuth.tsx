@@ -10,6 +10,7 @@ import {
 import { useCreateUserMutation, useLazyGetUserByUIDQuery } from '../redux/usersApi';
 import { useAppDispatch } from './redux';
 import { setUser } from '../redux/slices/authSlice';
+import { IUser } from '../types/IUser';
 
 const auth = getAuth();
 
@@ -43,21 +44,25 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
 			}
 
 			if (!user_db && shouldCreate) {
-				await createUser({
+				const newUser: IUser = {
 					displayName: displayName || '',
 					email: email || '',
 					uid,
-					isAdmin: claims.isAdmin || false,
-				});
-				user_db = { displayName, email, uid }; // або робити повторний запит, якщо потрібно
+					isAdmin: Boolean(claims.isAdmin),
+				};
+
+				await createUser(newUser);
+				user_db = newUser;
 			}
 
-			dispatch(
-				setUser({
-					...user_db,
-					isAdmin: claims.isAdmin || false,
-				})
-			);
+			if (user_db) {
+				dispatch(
+					setUser({
+						...user_db,
+						isAdmin: Boolean(claims.isAdmin),
+					})
+				);
+			}
 		} catch (error) {
 			console.error('fetchAndSetUser error:', error);
 		}
