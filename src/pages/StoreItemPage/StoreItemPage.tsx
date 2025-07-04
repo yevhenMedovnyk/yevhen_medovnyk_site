@@ -6,10 +6,12 @@ import { useCheckoutMutation } from '../../redux/checkoutApi';
 
 import Cookies from 'js-cookie';
 import { IProduct } from '../../types/IProduct';
+import { useGetProductByIdQuery } from '../../redux/storeApi';
 
 const StoreItemPage: React.FC = () => {
 	const { product_id } = useParams();
 	const [createOrder] = useCheckoutMutation();
+	const { data: product } = useGetProductByIdQuery(product_id as string);
 
 	const onClickBuy = (product: IProduct) => {
 		const order_ref = Date.now().toString();
@@ -31,18 +33,15 @@ const StoreItemPage: React.FC = () => {
 				if (res.result.redirect_url) {
 					window.location.assign(res.result.redirect_url);
 				}
+			})
+			.catch((err) => {
+				console.error('Помилка при створенні замовлення:', err);
 			});
 	};
 
 	return (
 		<div className={s.StoreItemPageContainer}>
-			<StoreItem
-				onClickBuy={onClickBuy}
-				full_page
-				productId={product_id as string}
-				width={1060}
-				height={1060}
-			/>
+			<StoreItem onClickBuy={onClickBuy} full_page product={product} />
 		</div>
 	);
 };
