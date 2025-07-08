@@ -22,10 +22,11 @@ const StoreItemPage: React.FC = () => {
 			name: product.name,
 			cnt: 1,
 			price: product.price,
-			code_product: product.code_product,
+			code_product: product._id,
 			//"code_checkbox": "3315974",
 			product_img_src: product.imgs[0]?.img,
 		};
+
 		createOrder(body)
 			.unwrap()
 			.then((res) => {

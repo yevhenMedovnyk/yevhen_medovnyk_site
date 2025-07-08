@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ClientOrders.module.scss';
 import { useGetOrdersQuery } from '../../redux/ordersApi';
-import ClientOrder from '../../components/clientOrder/ClientOrder';
+import ClientOrder from '../../components/ClientOrder/ClientOrder';
 
 const ClientOrders = () => {
 	const { data: clientOrders } = useGetOrdersQuery();

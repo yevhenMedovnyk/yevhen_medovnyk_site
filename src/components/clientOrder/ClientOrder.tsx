@@ -4,9 +4,10 @@ import { IOrder } from '../../types/IOrder';
 import Button from '../UI/Button/Button';
 import { useUpdateOrderMutation } from '../../redux/ordersApi';
 import { showSuccessToast } from '../UI/showSuccessToast';
+import { Link } from 'react-router';
 
 const img =
-	'https://res.cloudinary.com/yevhenmedovnyk/image/upload/v1749226825/albums/u02rtnm59et3gqz618yq.webp';
+	'https://res.cloudinary.com/yevhenmedovnyk/image/upload/v1751304457/Frame_cow_bf_uiulsu.webp';
 
 const ClientOrder: React.FC<IOrder> = ({
 	_id: order_id,
@@ -41,25 +42,32 @@ const ClientOrder: React.FC<IOrder> = ({
 
 	return (
 		<div className={s.orderWrapper}>
-			<div className={s.orderNumber}>
-				<span>Замовлення №:</span> {order_number}
-			</div>
-			<div className={s.totalAmount}>
-				<span>Загальна сума:</span> {amount} грн
+			<div className={s.orderTitle}>
+				<div className={s.orderNumber}>
+					<span>Замовлення №:</span> {order_number}
+				</div>
+				<div className={s.totalAmount}>
+					<span>Загальна сума:</span> {amount} грн
+				</div>
 			</div>
 			<div className={s.container}>
 				<div className={s.productsContainer}>
 					{products.map((product) => (
-						<div key={product._id}>
-							<div className={s.name}>
-								<span>Назва:</span> {product.name}
+						<div key={product._id} className={s.productContainer}>
+							<div className={s.productInfo}>
+								<div className={s.name}>
+									<span>Назва:</span> {product.name}
+								</div>
+								<div className={s.price}>
+									<span>Ціна:</span> {product.price} грн
+								</div>
+								<div className={s.quantity}>
+									<span>Кількість:</span> {product.cnt}
+								</div>
 							</div>
-							<div className={s.price}>
-								<span>Ціна:</span> {product.price} грн
-							</div>
-							<div className={s.orderImg}>
+							<Link to={`/store/${product.code_product}`} className={s.orderImg}>
 								<img src={img} alt="album_cover" />
-							</div>
+							</Link>
 						</div>
 					))}
 				</div>
