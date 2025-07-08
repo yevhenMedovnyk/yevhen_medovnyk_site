@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import auth from './slices/authSlice';
+import cart from './slices/cartSlice';
 import { imagesApi } from './imagesApi';
 import { albumsApi } from './albumsApi';
 import { usersApi } from './usersApi';
@@ -18,6 +19,7 @@ export const store = configureStore({
 		[mailApi.reducerPath]: mailApi.reducer,
 		[checkoutApi.reducerPath]: checkoutApi.reducer,
 		auth,
+		cart,
 		[ordersApi.reducerPath]: ordersApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>

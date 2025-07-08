@@ -10,10 +10,10 @@ import { IProduct } from '../../types/IProduct';
 interface IStoreItemProps {
 	product: IProduct | undefined;
 	full_page?: boolean;
-	onClickBuy?: (product: IProduct) => void;
+	handleAddToCart?: (product: IProduct) => void;
 }
 
-const StoreItem: React.FC<IStoreItemProps> = ({ product, full_page = false, onClickBuy }) => {
+const StoreItem: React.FC<IStoreItemProps> = ({ product, full_page = false, handleAddToCart }) => {
 	const renderImageSection = useMemo(() => {
 		if (!product || !product.imgs?.length) {
 			return (
@@ -77,12 +77,12 @@ const StoreItem: React.FC<IStoreItemProps> = ({ product, full_page = false, onCl
 							{product?.price ? ' грн' : ''}
 						</span>
 					)}
-					{full_page && product && onClickBuy && (
+					{full_page && product && handleAddToCart && (
 						<Button
 							type="button"
 							disabled={!product}
-							name="Перейти до оформлення"
-							onClick={() => onClickBuy(product)}
+							name="Додати в кошик"
+							onClick={() => handleAddToCart(product)}
 							class_name="storeItem"
 						/>
 					)}

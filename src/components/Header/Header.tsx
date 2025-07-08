@@ -29,6 +29,11 @@ const Header: React.FC = () => {
 		<header className={s.container}>
 			<Logo />
 			{!isTablet && <NavLinks />}
+			{isShowCartIcon() && (
+				<Link to="/cart" className={s.cartIconContainer}>
+					<PiShoppingCartSimpleFill className={s.cartIcon} />
+				</Link>
+			)}
 			{isTablet && (
 				<BurgerMenu
 					isBurgerMenuOpen={isBurgerMenuOpen}
@@ -40,11 +45,6 @@ const Header: React.FC = () => {
 					isBurgerMenuOpen={isBurgerMenuOpen}
 					handleBurgerMenuClick={handleBurgerMenuClick}
 				/>
-			)}
-			{isShowCartIcon() && (
-				<Link to="/cart" className={s.cartIconContainer}>
-					<PiShoppingCartSimpleFill className={s.cartIcon} />
-				</Link>
 			)}
 		</header>
 	);

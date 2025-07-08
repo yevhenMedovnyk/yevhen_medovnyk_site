@@ -23,10 +23,19 @@
 	}
 }
 
+.cartIconContainer{
+	margin-left: auto;
+}
+
 .cartIcon{
 	width: 1.5rem;
 	height: 1.5rem;
+	color: $color-primary;
 	cursor: pointer;
+	transition: 0.2s ease-in-out;
+	&:hover {
+		color: $color-secondary;
+	}
 }
 
 
