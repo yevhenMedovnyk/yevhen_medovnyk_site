@@ -7,9 +7,15 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import BurgerOpenBtn from './BurgerOpenBtn/BurgerOpenBtn';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 
+import { PiShoppingCartSimpleFill } from 'react-icons/pi';
+import { Link, useLocation } from 'react-router-dom';
+
 const Header: React.FC = () => {
 	const { isTablet } = useMediaQuery();
 	const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
+	const { pathname } = useLocation();
+
+	const isShowCartIcon = () => pathname.startsWith('/store') || pathname === '/cart';
 
 	const handleBurgerMenuClick = () => {
 		setIsBurgerMenuOpen(!isBurgerMenuOpen);
@@ -34,6 +40,11 @@ const Header: React.FC = () => {
 					isBurgerMenuOpen={isBurgerMenuOpen}
 					handleBurgerMenuClick={handleBurgerMenuClick}
 				/>
+			)}
+			{isShowCartIcon() && (
+				<Link to="/cart" className={s.cartIconContainer}>
+					<PiShoppingCartSimpleFill className={s.cartIcon} />
+				</Link>
 			)}
 		</header>
 	);
