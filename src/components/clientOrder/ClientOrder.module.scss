@@ -4,11 +4,11 @@
 .orderWrapper {
 	width: 100%;
 	padding: 1.5rem;
-	border: 1px solid $color-border-secondary;
 	border-radius: 5px;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+
 	background-color: $color-bg-secondary;
 	animation: fadeIn 900ms forwards;
-	box-shadow: 1px 1px 6px 1px rgba(44, 63, 82, 0.42);
 	font-family: $font-secondary;
 	font-size: 0.8rem;
 	line-height: 1.25;

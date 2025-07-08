@@ -14,6 +14,7 @@ import StoreItemPage from './pages/StoreItemPage/StoreItemPage';
 import OrderStatus from './pages/OrderStatus/OrderStatus';
 import ClientOrders from './pages/ClientOrders/ClientOrders';
 import RequireAdmin from './components/RequireAdmin';
+import Cart from './pages/Cart/Cart';
 
 function App(): React.ReactElement {
 	return (
@@ -30,6 +31,7 @@ function App(): React.ReactElement {
 					<Route path="/store" element={<Store />} />
 					<Route path="/order-status" element={<OrderStatus />} />
 					<Route path="/store/:product_id" element={<StoreItemPage />} />
+					<Route path="/cart" element={<Cart />} />
 					<Route
 						path="/admin"
 						element={
