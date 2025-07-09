@@ -1,0 +1,26 @@
+@use "/src/styles/variables" as *;
+@use "/src/styles/mixins" as *;
+
+.cart{
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.total{
+	display: flex;
+	justify-content: space-between;
+	border-radius: 5px;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+	padding: 0.8rem;
+	font-family: $font-secondary;
+	font-size: 1rem;
+	line-height: 1.25;
+	font-weight: 500;
+
+	pointer-events: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}

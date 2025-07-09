@@ -63,6 +63,15 @@ const cartSlice = createSlice({
 			saveCartToLocalStorage(state.items);
 		},
 
+		// Збільшуємо кількість товару
+		increaseQuantity: (state, action: PayloadAction<number>) => {
+			const item = state.items.find((item) => item._id === action.payload);
+			if (item) {
+				item.quantity_in_cart += 1;
+			}
+			saveCartToLocalStorage(state.items);
+		},
+
 		// Очищаємо корзину повністю
 		clearCart: (state) => {
 			state.items = [];
@@ -71,5 +80,6 @@ const cartSlice = createSlice({
 	},
 });
 
-export const { addToCart, removeFromCart, decreaseQuantity, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart } =
+	cartSlice.actions;
 export default cartSlice.reducer;
