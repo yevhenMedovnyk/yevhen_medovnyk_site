@@ -2,15 +2,48 @@ import React from 'react';
 import s from './Cart.module.scss';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { increaseQuantity, decreaseQuantity, removeFromCart } from '../../redux/slices/cartSlice';
-import { selectCartItems, selectCartTotal } from '../../selectors/cartSelectors';
+import {
+	selectCartItemCount,
+	selectCartItems,
+	selectCartTotal,
+} from '../../selectors/cartSelectors';
 import CartItem from '../../CartItem/CartItem';
+import Button from '../../components/UI/Button/Button';
+import { useCheckoutMutation } from '../../redux/checkoutApi';
+
+import Cookies from 'js-cookie';
 
 const Cart = () => {
 	const dispatch = useAppDispatch();
 	const cartItems = useAppSelector(selectCartItems);
 	const total = useAppSelector(selectCartTotal);
-	//const itemCount = useAppSelector(selectCartItemCount);
+	const [createOrder] = useCheckoutMutation();
+
+	const itemCount = useAppSelector(selectCartItemCount);
 	console.log('cart', cartItems);
+
+	const onClickBuy = () => {
+		const order_ref = Date.now().toString();
+		const body = {
+			order_ref: order_ref,
+			amount: total,
+			count: itemCount,
+			products: cartItems,
+			//"code_checkbox": "3315974",
+		};
+
+		createOrder(body)
+			.unwrap()
+			.then((res) => {
+				Cookies.set('last_order_ref', order_ref, { expires: 1 });
+				if (res.result.redirect_url) {
+					window.location.assign(res.result.redirect_url);
+				}
+			})
+			.catch((err) => {
+				console.error('Помилка при створенні замовлення:', err);
+			});
+	};
 
 	return (
 		<div className={s.cart}>
@@ -27,6 +60,7 @@ const Cart = () => {
 				<span>Загальна сума:</span>
 				{total} грн
 			</div>
+			<Button name="Оформити замовлення" onClick={() => onClickBuy()} class_name="cart" />
 		</div>
 	);
 };

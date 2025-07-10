@@ -48,6 +48,11 @@
 	height: 1.8rem;
 }
 
+.button.cart{
+	width: 100%;
+	min-height: 3rem;
+}
+
 .button:disabled{
 	opacity: 0.5;
 	cursor: not-allowed;
