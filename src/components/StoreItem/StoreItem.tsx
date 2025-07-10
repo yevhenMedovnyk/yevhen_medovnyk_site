@@ -6,14 +6,18 @@ import Swiper from '../Swiper/Swiper';
 import Button from '../UI/Button/Button';
 import s from './StoreItem.module.scss';
 import { IProduct } from '../../types/IProduct';
+import { useAppSelector } from '../../hooks/redux';
+import { selectIsInCart } from '../../selectors/cartSelectors';
 
 interface IStoreItemProps {
-	product: IProduct | undefined;
+	product: IProduct;
 	full_page?: boolean;
 	handleAddToCart?: (product: IProduct) => void;
 }
 
 const StoreItem: React.FC<IStoreItemProps> = ({ product, full_page = false, handleAddToCart }) => {
+	const isInCart = useAppSelector(selectIsInCart(product?._id));
+
 	const renderImageSection = useMemo(() => {
 		if (!product || !product.imgs?.length) {
 			return (
@@ -80,8 +84,8 @@ const StoreItem: React.FC<IStoreItemProps> = ({ product, full_page = false, hand
 					{full_page && product && handleAddToCart && (
 						<Button
 							type="button"
-							disabled={!product}
-							name="Додати в кошик"
+							disabled={!product || isInCart}
+							name={isInCart ? 'Вже в кошику' : 'Додати до кошика'}
 							onClick={() => handleAddToCart(product)}
 							class_name="storeItem"
 						/>

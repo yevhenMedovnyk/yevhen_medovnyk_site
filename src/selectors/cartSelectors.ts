@@ -1,3 +1,4 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../redux/store'; // шлях до store.ts
 
 // Отримати всі товари з корзини
@@ -10,3 +11,9 @@ export const selectCartItemCount = (state: RootState) =>
 // Загальна вартість корзини
 export const selectCartTotal = (state: RootState) =>
 	state.cart.items.reduce((total, item) => total + item.price * item.quantity_in_cart, 0);
+
+export const selectIsInCart = (productId: number) =>
+	createSelector(
+		(state: RootState) => state.cart.items,
+		(items) => items.some((item) => item._id === productId)
+	);
