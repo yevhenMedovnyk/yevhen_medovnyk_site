@@ -10,7 +10,7 @@
 .container.burgerMenu {
 	flex-direction: column;
 	justify-content: start;
-	gap: .8rem 0;
+	gap: 0.8rem 0;
 	background-color: $color-secondary;
 }
 
@@ -46,6 +46,7 @@
 .active {
 	position: relative;
 	color: $color-secondary;
+
 	&:before {
 		position: absolute;
 		content: "";

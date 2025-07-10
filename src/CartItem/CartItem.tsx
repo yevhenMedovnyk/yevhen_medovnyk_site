@@ -25,7 +25,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item, onIncrease, onDecrease, onRe
 			</Link>
 			<div className={s.info}>
 				<div className={s.name}>{name}</div>
-				<div className={s.price}>Ціна: {price} грн</div>
+				{/*<div className={s.price}>Ціна: {price} грн</div>*/}
 				<div className={s.quantityContainer}>
 					<CiSquareMinus className={s.minusBtn} onClick={onDecrease} />
 					<div className={s.quantityInputFake}>{quantity_in_cart}</div>
@@ -33,7 +33,7 @@ const CartItem: React.FC<ICartItemProps> = ({ item, onIncrease, onDecrease, onRe
 				</div>
 			</div>
 
-			<div className={s.itemTotal}>Сума: {itemTotal} грн</div>
+			<div className={s.itemTotal}>{itemTotal} грн</div>
 			<button className={s.btn} onClick={onRemove}>
 				<AiOutlineCloseCircle />
 			</button>
