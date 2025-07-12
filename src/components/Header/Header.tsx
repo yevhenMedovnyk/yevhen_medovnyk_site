@@ -9,6 +9,8 @@ import BurgerMenu from './BurgerMenu/BurgerMenu';
 
 import { PiShoppingCartSimpleFill } from 'react-icons/pi';
 import { Link, useLocation } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
+import { selectCartItemCount } from '../../selectors/cartSelectors';
 
 const Header: React.FC = () => {
 	const { isTablet } = useMediaQuery();
@@ -16,6 +18,7 @@ const Header: React.FC = () => {
 	const { pathname } = useLocation();
 
 	const isShowCartIcon = () => pathname.startsWith('/store') || pathname === '/cart';
+	const itemsCount = useAppSelector(selectCartItemCount);
 
 	const handleBurgerMenuClick = () => {
 		setIsBurgerMenuOpen(!isBurgerMenuOpen);
@@ -32,6 +35,7 @@ const Header: React.FC = () => {
 			{isShowCartIcon() && (
 				<Link to="/cart" className={s.cartIconContainer}>
 					<PiShoppingCartSimpleFill className={s.cartIcon} />
+					{itemsCount > 0 && <div className={s.countBadge}>{itemsCount}</div>}
 				</Link>
 			)}
 			{isTablet && (

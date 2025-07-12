@@ -7,7 +7,7 @@ import {
 	selectCartItems,
 	selectCartTotal,
 } from '../../selectors/cartSelectors';
-import CartItem from '../../CartItem/CartItem';
+import CartItem from '../../components/CartItem/CartItem';
 import Button from '../../components/UI/Button/Button';
 import { useCheckoutMutation } from '../../redux/checkoutApi';
 
@@ -19,7 +19,7 @@ const Cart = () => {
 	const total = useAppSelector(selectCartTotal);
 	const [createOrder] = useCheckoutMutation();
 
-	const itemCount = useAppSelector(selectCartItemCount);
+	const itemsCount = useAppSelector(selectCartItemCount);
 	console.log('cart', cartItems);
 
 	const onClickBuy = () => {
@@ -27,7 +27,7 @@ const Cart = () => {
 		const body = {
 			order_ref: order_ref,
 			amount: total,
-			count: itemCount,
+			count: itemsCount,
 			products: cartItems,
 			//"code_checkbox": "3315974",
 		};

@@ -1,11 +1,12 @@
 import React from 'react';
 import s from './CartItem.module.scss';
 import { Link } from 'react-router-dom';
-import { ICartItem } from '../types/ICartItem';
+import { ICartItem } from '../../types/ICartItem';
 
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { CiSquarePlus } from 'react-icons/ci';
-import { CiSquareMinus } from 'react-icons/ci';
+import { FiPlus } from 'react-icons/fi';
+import { FiMinus } from 'react-icons/fi';
+import clsx from 'clsx';
 
 interface ICartItemProps {
 	item: ICartItem;
@@ -27,9 +28,12 @@ const CartItem: React.FC<ICartItemProps> = ({ item, onIncrease, onDecrease, onRe
 				<div className={s.name}>{name}</div>
 				{/*<div className={s.price}>Ціна: {price} грн</div>*/}
 				<div className={s.quantityContainer}>
-					<CiSquareMinus className={s.minusBtn} onClick={onDecrease} />
+					<FiMinus
+						className={clsx(s.minusBtn, quantity_in_cart === 1 && s.disabled)}
+						onClick={onDecrease}
+					/>
 					<div className={s.quantityInputFake}>{quantity_in_cart}</div>
-					<CiSquarePlus className={s.plusBtn} onClick={onIncrease} />
+					<FiPlus className={s.plusBtn} onClick={onIncrease} />
 				</div>
 			</div>
 
