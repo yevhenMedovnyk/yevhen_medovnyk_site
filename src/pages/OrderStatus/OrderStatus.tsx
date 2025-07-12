@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useGetOrderDataQuery } from '../../redux/checkoutApi';
 import Cookies from 'js-cookie';
-
 import s from './OrderStatus.module.scss';
+import { Link } from 'react-router-dom';
 
-import { AiOutlineExclamationCircle } from 'react-icons/ai';
-import { AiOutlineDownCircle } from 'react-icons/ai';
-import { Link } from 'react-router';
+import pirate_cat_icon from '../../assets/404page/pirate_cat_icon.png';
+import paper_cat_icon from '../../assets/order-status/paper_cat_icon.png';
 
 const OrderStatus = () => {
 	const [orderRef, setOrderRef] = React.useState('');
@@ -33,34 +32,28 @@ const OrderStatus = () => {
 			{isOrderSuccess ? (
 				<>
 					{' '}
-					<AiOutlineDownCircle className={s.successIcon} />
+					<img src={paper_cat_icon} alt="paper_cat_icon" className={s.icon} />
 					<span className={s.successText}>
-						<b>Замовлення успішно прийнято!</b>
+						Дякуємо!
+						<br />
+						Замовлення №{data?.result.basket_id}
+						<br /> успішно прийняте!
 					</span>
-					<div className={s.productInfo}>
-						<span>
-							<b>Номер замовлення:</b> {data?.result.basket_id}
-						</span>
-						<span>
-							<b>Назва товару:</b> {data?.result.products[0].name}
-						</span>
-						<span>
-							<b>Сума:</b> {data?.result.amount}
-						</span>
-					</div>
+					<Link className={s.backLink} to="/store">
+						Повернутись до магазину
+					</Link>
 				</>
 			) : (
-				<>
-					<span className={s.errText}>
-						<b>Ууупс, щось пішло не так:</b> {data?.result.generalStatus} <br />
-						<b>Спробуйте ще раз!</b>
+				<div className={s.errorStatusContainer}>
+					<img className={s.icon} src={pirate_cat_icon} alt="404_image" />
+					<span className={s.errorStatusText}>
+						Ууупс, щось пішло не так: {data?.result.generalStatus}
 					</span>
-					<AiOutlineExclamationCircle className={s.errIcon} />
-				</>
+					<Link className={s.backLink} to="/store">
+						Повернутись до магазину
+					</Link>
+				</div>
 			)}
-			<Link className={s.backLink} to="/store">
-				Повернутися до магазину
-			</Link>
 		</div>
 	);
 };

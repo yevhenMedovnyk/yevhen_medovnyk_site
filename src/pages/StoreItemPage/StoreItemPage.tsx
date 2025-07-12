@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './StoreItemPage.module.scss';
 import StoreItem from '../../components/StoreItem/StoreItem';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../redux/storeApi';
 import { IProduct } from '../../types/IProduct';
 import { useAppDispatch } from '../../hooks/redux';
@@ -33,7 +33,13 @@ const StoreItemPage: React.FC = () => {
 
 	const handleAddToCart = (product: IProduct): void => {
 		dispatch(addToCart(product));
-		showSuccessToast('Товар додано до кошика');
+		showSuccessToast(
+			'Товар додано!',
+			<Link to="/cart" className={s.toastLink}>
+				→ Перейти до кошика
+			</Link>,
+			5000
+		);
 	};
 
 	return (

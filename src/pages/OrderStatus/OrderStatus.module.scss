@@ -7,97 +7,50 @@
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	gap: 0.5rem;
-	width: 60%;
-	border: 1px solid $color-border-secondary;
-	border-radius: 5px;
-	background-color: $color-bg-secondary;
-	animation: fadeIn 900ms forwards;
-	padding: 2.3rem 2rem;
-	box-shadow: 1px 1px 6px 1px rgba(44, 63, 82, 0.42);
-	font-family: $font-primary;
 	font-size: 1.2rem;
-	//font-family: $font-primary;
-
-	@include large_desktop {
-		width: 80%;
-	}
-
-	@include tablet {
-		width: 90%;
-	}
-
-	@include small_tablet {
-		width: 95%;
-		padding: 1.8rem 0.7rem;
-		font-size: 1rem;
-	}
 }
 
 .successText {
-	font-size: 1.6rem;
+	font-size: 1.2rem;
 	color: $color-tertiary;
 	font-weight: 500;
-	line-height: 1.5;
+	line-height: 1.2;
 	margin-bottom: 1rem;
-
-	@include small_tablet {
-		font-size: 1.4rem;
-		margin-bottom: 0.5rem;
-	}
 }
 
-.successIcon {
-	font-size: 3rem;
-	color: green;
-}
-
-.productInfo {
+.errorStatusContainer{
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
-	line-height: 1;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
 
-.deliveryInfo {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-	margin-top: 1rem;
+.icon{
+	width: 10rem;
+	margin-bottom: 1.2rem;
 }
 
-.errText {
-	font-size: 1.3rem;
-	color: $color-tertiary;
-	font-weight: 500;
-	line-height: 1.5;
-}
-.errIcon {
-	margin: 0.7rem auto .5rem;
-	font-size: 3rem;
-	color: $color-accent;
-
-	@include small_tablet {
-		font-size: 2.5rem;
-		margin: 0.7rem auto .3rem;
-	}
+.errorStatusText{
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin-bottom: 0.7rem;
 }
 
-.backLink {
+.backLink{
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
 	width: auto;
 	align-self: center;
 	border-radius: 8px;
-	font-size: 0.8rem;
-	padding: 0.8rem 1.5rem;
+	font-size: .8rem;
+	padding: .8rem 1.5rem;
 	background-color: $color-secondary;
 	color: $color-bg;
 	text-align: center;
 	transition: all 0.2s ease-in-out;
-	margin-top: 2rem;
-	&:hover {
+	&:hover{
 		opacity: 0.9;
 	}
 }
