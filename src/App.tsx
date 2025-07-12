@@ -15,6 +15,7 @@ import OrderStatus from './pages/OrderStatus/OrderStatus';
 import ClientOrders from './pages/ClientOrders/ClientOrders';
 import RequireAdmin from './components/RequireAdmin';
 import Cart from './pages/Cart/Cart';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 function App(): React.ReactElement {
 	return (
@@ -32,6 +33,7 @@ function App(): React.ReactElement {
 					<Route path="/order-status" element={<OrderStatus />} />
 					<Route path="/store/:product_id" element={<StoreItemPage />} />
 					<Route path="/cart" element={<Cart />} />
+					<Route path="*" element={<ErrorPage />} />
 					<Route
 						path="/admin"
 						element={
